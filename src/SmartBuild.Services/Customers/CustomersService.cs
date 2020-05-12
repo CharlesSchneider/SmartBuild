@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -13,11 +14,6 @@ namespace SmartBuild.Services.Customers
         protected readonly SmartBuildDbContext _context;
         protected readonly ILogger<CustomersService> _logger;
 
-        protected string ServiceName => $"{GetType().Name}";
-
-        protected string GetServiceMethodName(string methodName) => $"{ServiceName}.{methodName}";
-
-
         public CustomersService(SmartBuildDbContext context, ILogger<CustomersService> logger)
         {
             _context = context;
@@ -29,11 +25,18 @@ namespace SmartBuild.Services.Customers
             try
             {
                 var result = await _context.Set<Customer>().ToListAsync();
+
+                if (result != null)
+                {
+                    throw new Exception("Teste!");
+                }
+
                 return result;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, GetServiceMethodName(nameof(GetCustomers)));
+                var method = MethodBase.GetCurrentMethod();
+                _logger.LogError(ex, $"[{method.Module.Name}] - {method.Name}");
                 throw;
             }
         }
@@ -48,7 +51,8 @@ namespace SmartBuild.Services.Customers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, GetServiceMethodName(nameof(Add)));
+                var method = MethodBase.GetCurrentMethod();
+                _logger.LogError(ex, $"{method.Module.Name}.{method.Name}");
                 throw;
             }
         }
@@ -72,7 +76,8 @@ namespace SmartBuild.Services.Customers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, GetServiceMethodName(nameof(Update)));
+                var method = MethodBase.GetCurrentMethod();
+                _logger.LogError(ex, $"{method.Module.Name}.{method.Name}");
                 throw;
             }
         }
