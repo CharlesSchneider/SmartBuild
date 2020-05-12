@@ -25,12 +25,6 @@ namespace SmartBuild.Services.Customers
             try
             {
                 var result = await _context.Set<Customer>().ToListAsync();
-
-                if (result != null)
-                {
-                    throw new Exception("Teste!");
-                }
-
                 return result;
             }
             catch (Exception ex)
