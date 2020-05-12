@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SmartBuild.Data\SmartBuild.Data.csproj" />
     <ProjectReference Include="..\SmartBuild.Entities\SmartBuild.Entities.csproj" />
     <ProjectReference Include="..\SmartBuild.Library\SmartBuild.Library.csproj" />

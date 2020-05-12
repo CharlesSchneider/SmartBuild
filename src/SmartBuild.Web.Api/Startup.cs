@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SmartBuild.Data;
 using SmartBuild.Services.Customers;
+using SmartBuild.Web.Api.Controllers;
 
 namespace SmartBuild.Web.Api
 {
@@ -20,7 +22,15 @@ namespace SmartBuild.Web.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation(config =>
+                {
+                    config.RegisterValidatorsFromAssemblyContaining<CustomersService>()
+                          .RegisterValidatorsFromAssemblyContaining<CustomersController>();
+                    config.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+                });
+
+            services.AddLocalization();
 
             services.AddDbContext<SmartBuildDbContext>(options =>
             {
