@@ -1,0 +1,3 @@
+﻿Add a migration
+	dotnet ef migrations add InitialCreate --project .\src\SmartBuild.Data
+
