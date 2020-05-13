@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SmartBuild.Services.Customers;
-using SmartBuild.Services.Customers.DTOs;
+using SmartBuild.Services.Customers.Models;
 
 namespace SmartBuild.Web.Api.Controllers
 {
@@ -18,7 +18,7 @@ namespace SmartBuild.Web.Api.Controllers
         }
 
         [HttpGet]
-        public async IAsyncEnumerable<CustomerView> GetAsync()
+        public async IAsyncEnumerable<CustomerModel> GetAsync()
         {
             var customers = _customersService.GetCustomersAsync();
             await foreach (var customer in customers)
@@ -28,14 +28,14 @@ namespace SmartBuild.Web.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<CustomerView> PostAsync(CustomerSave customer)
+        public async Task<CustomerModel> PostAsync(CustomerSave customer)
         {
             var result = await _customersService.AddAsync(customer);
             return result;
         }
 
         [HttpPut("{customerId}")]
-        public async Task<CustomerView> PutAsync(int customerId, [FromBody]CustomerSave customer)
+        public async Task<CustomerModel> PutAsync(int customerId, [FromBody]CustomerSave customer)
         {
             var result = await _customersService.UpdateAsync(customerId, customer);
             return result;

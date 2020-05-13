@@ -1,6 +1,6 @@
-﻿namespace SmartBuild.Services.Customers.DTOs
+﻿namespace SmartBuild.Services.Customers.Models
 {
-    public class CustomerView
+    public class CustomerModel
     {
         public int CustomerId { get; set; }
         public string Name { get; set; }

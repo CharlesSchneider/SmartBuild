@@ -1,7 +1,7 @@
 ﻿using System;
 using SmartBuild.Entities;
 
-namespace SmartBuild.Services.Customers.DTOs
+namespace SmartBuild.Services.Customers.Models
 {
     public class CustomerSave
     {

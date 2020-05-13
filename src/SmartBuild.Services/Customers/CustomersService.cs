@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SmartBuild.Data;
 using SmartBuild.Entities.Customers;
-using SmartBuild.Services.Customers.DTOs;
+using SmartBuild.Services.Customers.Models;
 
 namespace SmartBuild.Services.Customers
 {
@@ -24,12 +24,13 @@ namespace SmartBuild.Services.Customers
             _mapper = mapper;
         }
 
-        public async IAsyncEnumerable<CustomerView> GetCustomersAsync()
+        public async IAsyncEnumerable<CustomerModel> GetCustomersAsync()
         {
-            var customers = Task.FromResult(new List<CustomerView>());
+            var customers = default(Task<List<CustomerModel>>);
+
             try
             {
-                customers = _mapper.ProjectTo<CustomerView>(_context.Customers.AsNoTracking())
+                customers = _mapper.ProjectTo<CustomerModel>(_context.Customers.AsNoTracking())
                                    .AsNoTracking()
                                    .ToListAsync();
             }
@@ -46,14 +47,14 @@ namespace SmartBuild.Services.Customers
             }
         }
 
-        public async Task<CustomerView> AddAsync(CustomerSave customer)
+        public async Task<CustomerModel> AddAsync(CustomerSave customer)
         {
             try
             {
                 var newCustomer = _mapper.Map<Customer>(customer);
                 await _context.AddAsync(newCustomer);
-                var result = await _context.SaveChangesAsync();
-                return _mapper.Map<CustomerView>(newCustomer);
+                await _context.SaveChangesAsync();
+                return _mapper.Map<CustomerModel>(newCustomer);
             }
             catch (Exception ex)
             {
@@ -63,7 +64,7 @@ namespace SmartBuild.Services.Customers
             }
         }
 
-        public async Task<CustomerView> UpdateAsync(int customerId, CustomerSave customer)
+        public async Task<CustomerModel> UpdateAsync(int customerId, CustomerSave customer)
         {
             try
             {
@@ -74,8 +75,8 @@ namespace SmartBuild.Services.Customers
                     existingCustomer.Name = customer.Name;
 
                     _context.Update(existingCustomer);
-                    var result = await _context.SaveChangesAsync();
-                    return _mapper.Map<CustomerView>(existingCustomer);
+                    await _context.SaveChangesAsync();
+                    return _mapper.Map<CustomerModel>(existingCustomer);
                 }
 
                 return null;

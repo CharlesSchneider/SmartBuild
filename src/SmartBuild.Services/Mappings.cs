@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using SmartBuild.Entities.Customers;
-using SmartBuild.Services.Customers.DTOs;
+using SmartBuild.Services.Customers.Models;
 
 namespace SmartBuild.Services
 {
@@ -8,7 +8,7 @@ namespace SmartBuild.Services
     {
         public Mappings()
         {
-            CreateMap<Customer, CustomerView>();
+            CreateMap<Customer, CustomerModel>();
             CreateMap<CustomerSave, Customer>();
         }
     }

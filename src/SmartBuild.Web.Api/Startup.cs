@@ -44,7 +44,6 @@ namespace SmartBuild.Web.Api
             services.AddAutoMapper(typeof(Mappings));
 
             services.AddTransient<ICustomersService, CustomersService>();
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
