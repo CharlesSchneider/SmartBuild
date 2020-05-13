@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SmartBuild.Data;
 using SmartBuild.Entities.Customers;
+using SmartBuild.Services.Customers.ExtensionMethods;
 using SmartBuild.Services.Customers.Models;
 
 namespace SmartBuild.Services.Customers
@@ -68,7 +69,7 @@ namespace SmartBuild.Services.Customers
         {
             try
             {
-                var existingCustomer = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == customerId);
+                var existingCustomer = await _context.Customers.GetyByIdAsync(customerId);
 
                 if (existingCustomer != null)
                 {
@@ -80,6 +81,26 @@ namespace SmartBuild.Services.Customers
                 }
 
                 return null;
+            }
+            catch (Exception ex)
+            {
+                var method = MethodBase.GetCurrentMethod();
+                _logger.LogError(ex, $"{method.Module.Name}.{method.Name}");
+                throw;
+            }
+        }
+
+        public async Task DeleteAsync(int customerId)
+        {
+            try
+            {
+                var existingCustomer = await _context.Customers.GetyByIdAsync(customerId);
+
+                if (existingCustomer != null)
+                {
+                    _context.Customers.Remove(existingCustomer);
+                    await _context.SaveChangesAsync();
+                }
             }
             catch (Exception ex)
             {

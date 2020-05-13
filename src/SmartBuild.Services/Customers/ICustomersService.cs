@@ -9,5 +9,6 @@ namespace SmartBuild.Services.Customers
         IAsyncEnumerable<CustomerModel> GetCustomersAsync();
         Task<CustomerModel> AddAsync(CustomerSave customer);
         Task<CustomerModel> UpdateAsync(int customerId, CustomerSave customer);
+        Task DeleteAsync(int customerId);
     }
 }

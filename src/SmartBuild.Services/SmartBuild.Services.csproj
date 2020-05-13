@@ -13,7 +13,6 @@
     <ProjectReference Include="..\SmartBuild.Data\SmartBuild.Data.csproj" />
     <ProjectReference Include="..\SmartBuild.Entities\SmartBuild.Entities.csproj" />
     <ProjectReference Include="..\SmartBuild.Library\SmartBuild.Library.csproj" />
-    <ProjectReference Include="..\SmartBuild.Repositories\SmartBuild.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

@@ -40,5 +40,11 @@ namespace SmartBuild.Web.Api.Controllers
             var result = await _customersService.UpdateAsync(customerId, customer);
             return result;
         }
+
+        [HttpDelete("{customerId}")]
+        public async Task DeleteAsync(int customerId)
+        {
+            await _customersService.DeleteAsync(customerId);
+        }
     }
 }

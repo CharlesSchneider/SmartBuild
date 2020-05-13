@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SmartBuild.Data.EntityTypeConfigurations;
+using SmartBuild.Entities;
 using SmartBuild.Entities.Customers;
 
 namespace SmartBuild.Data
@@ -25,6 +27,17 @@ namespace SmartBuild.Data
         #endregion
 
         #region Methods
+
+        public override EntityEntry<TEntity> Remove<TEntity>(TEntity entity)
+        {
+            if (entity is IDeletable deletableEntity)
+            {
+                deletableEntity.IsDeleted = true;
+                return base.Update(entity);
+            }
+
+            return base.Remove(entity);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
