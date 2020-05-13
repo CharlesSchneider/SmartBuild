@@ -2,3 +2,6 @@ Alternatives to Respository pattern
 https://www.thereformedprogrammer.net/is-the-repository-pattern-useful-with-entity-framework-core/
 
 https://lostechies.com/derekgreer/2018/02/20/ditch-the-repository-pattern-already/
+
+Building high performance database queries using Entity Framework Core and AutoMapper
+https://www.thereformedprogrammer.net/building-efficient-database-queries-using-entity-framework-core-and-automapper/

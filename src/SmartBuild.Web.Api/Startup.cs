@@ -1,3 +1,4 @@
+using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SmartBuild.Data;
+using SmartBuild.Services;
 using SmartBuild.Services.Customers;
 using SmartBuild.Web.Api.Controllers;
 
@@ -38,6 +40,8 @@ namespace SmartBuild.Web.Api
                     .UseSqlServer(Configuration.GetConnectionString("SmartBuildConnection"))
                     .EnableDetailedErrors();
             });
+
+            services.AddAutoMapper(typeof(Mappings));
 
             services.AddTransient<ICustomersService, CustomersService>();
 
