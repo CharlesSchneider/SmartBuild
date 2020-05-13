@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SmartBuild.Entities.Customers;
+using SmartBuild.Services.Customers.DTOs;
 
 namespace SmartBuild.Services.Customers
 {
     public interface ICustomersService
     {
-        Task<List<Customer>> GetCustomers();
-        Task<int?> Add(Customer customer);
-        Task<int?> Update(int customerId, Customer customer);
+        IAsyncEnumerable<CustomerView> GetCustomersAsync();
+        Task<CustomerView> AddAsync(CustomerSave customer);
+        Task<CustomerView> UpdateAsync(int customerId, CustomerSave customer);
     }
 }

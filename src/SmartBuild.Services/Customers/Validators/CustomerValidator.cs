@@ -8,9 +8,9 @@ namespace SmartBuild.Services.Customers.Validators
     {
         public CustomerValidator(IStringLocalizer<CustomerValidator> localizer)
         {
-            RuleFor(x => x.CPF)
-                .NotEmpty().WithMessage(localizer["Informe o CPF."])
-                .Length(11).WithMessage(localizer["O CPF deve ter 11 números."]);
+            //RuleFor(x => x.CPF)
+            //    .NotEmpty().WithMessage(localizer["Informe o CPF."])
+            //    .Length(11).WithMessage(localizer["O CPF deve ter 11 números."]);
         }
     }
 }
