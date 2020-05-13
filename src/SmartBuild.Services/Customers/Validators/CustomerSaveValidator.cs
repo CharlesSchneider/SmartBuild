@@ -20,7 +20,7 @@ namespace SmartBuild.Services.Customers.Validators
                 .NotEmpty()
                 .WithMessage(localizer["Informe o nome."])
                 .MinimumLength(3)
-                .WithMessage(localizer["O nome deve ter pelo menso 3 letras."])
+                .WithMessage(localizer["O nome deve ter pelo menos 3 letras."])
                 .MustAsync(NameDoesntExist)
                 .WithMessage(localizer["Nome já cadastrado."]);
         }
