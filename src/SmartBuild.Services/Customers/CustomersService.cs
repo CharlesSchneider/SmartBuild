@@ -61,7 +61,7 @@ namespace SmartBuild.Services.Customers
         {
             try
             {
-                var existingCustomer = await _context.Set<Customer>().FirstOrDefaultAsync(c => c.CustomerId == customerId);
+                var existingCustomer = await _context.Customers.FirstOrDefaultAsync(c => c.CustomerId == customerId);
 
                 if (existingCustomer != null)
                 {
