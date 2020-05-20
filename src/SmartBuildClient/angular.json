@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "SmartBuild"
+  "defaultProject": "SmartBuild",
+  "cli": {
+    "analytics": false
+  }
 }
