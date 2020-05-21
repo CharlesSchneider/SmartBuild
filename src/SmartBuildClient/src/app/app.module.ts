@@ -8,6 +8,7 @@ import { ClarityModule } from '@clr/angular';
 import { ContentComponent } from './_layout/content/content.component';
 import { HeaderComponent } from './_layout/header/header.component';
 import { FooterComponent } from './_layout/footer/footer.component';
+import { SharedModule } from './_shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FooterComponent } from './_layout/footer/footer.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    SharedModule,
     ClarityModule,
   ],
   providers: [],

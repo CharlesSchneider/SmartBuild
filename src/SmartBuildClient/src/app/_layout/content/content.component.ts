@@ -6,11 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./content.component.css']
 })
 export class ContentComponent implements OnInit {
-  collapsed = false;
-
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  get collapsed(): boolean {
+    const isMenuCollapsed = localStorage.getItem('isMenuCollapsed');
+    return isMenuCollapsed === 'true';
+  }
+
+  set collapsed(value: boolean) {
+    localStorage.setItem('isMenuCollapsed', value.toString());
+    this.collapsed = value;
+  }
 }

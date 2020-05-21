@@ -4,35 +4,36 @@
     <div class="content-area">
       <router-outlet></router-outlet>
     </div>
+    <!-- https://clarity.design/documentation/vertical-nav/nav-groups/normal/pidgey -->
     <clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed">
-      <a clrVerticalNavLink [routerLink]="['/clientes']" routerLinkActive="active">
-        <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
+      <clr-vertical-nav-group routerLinkActive="active">
+        <clr-icon shape="user" clrVerticalNavIcon></clr-icon>
         Clientes
-      </a>
-      <a clrVerticalNavLink [routerLink]="['/clientes', 'listagem']" routerLinkActive="active">
-        <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
-        Clientes Listagem
-      </a>
-      <a clrVerticalNavLink [routerLink]="['/clientes', 'novo']" routerLinkActive="active">
-        <clr-icon clrVerticalNavIcon shape="bolt"></clr-icon>
-        Novo Cliente
-      </a>
-      <a clrVerticalNavLink [routerLink]="['/empreendimentos']" routerLinkActive="active">
-        <clr-icon clrVerticalNavIcon shape="sad-face"></clr-icon>
+        <clr-vertical-nav-group-children>
+          <a clrVerticalNavLink [routerLink]="['/clientes', 'listagem']" routerLinkActive="active">
+            <clr-icon shape="list" clrVerticalNavIcon></clr-icon>
+            Listagem
+          </a>
+          <a clrVerticalNavLink [routerLink]="['/clientes', 'novo']" routerLinkActive="active">
+            <clr-icon shape="plus" clrVerticalNavIcon></clr-icon>
+            Novo
+          </a>
+        </clr-vertical-nav-group-children>
+      </clr-vertical-nav-group>
+      <clr-vertical-nav-group routerLinkActive="active">
+        <clr-icon shape="building" clrVerticalNavIcon></clr-icon>
         Empreendimentos
-      </a>
-      <a clrVerticalNavLink routerLink="./grass" routerLinkActive="active">
-        <clr-icon clrVerticalNavIcon shape="bug"></clr-icon>
-        Grass
-      </a>
-      <a clrVerticalNavLink routerLink="./fighting" routerLinkActive="active">
-        <clr-icon clrVerticalNavIcon shape="shield"></clr-icon>
-        Fighting
-      </a>
-      <a clrVerticalNavLink routerLink="./credit" routerLinkActive="active">
-        <clr-icon clrVerticalNavIcon shape="certificate"></clr-icon>
-        Credit
-      </a>
+        <clr-vertical-nav-group-children>
+          <a clrVerticalNavLink [routerLink]="['/empreedimentos', 'listagem']" routerLinkActive="active">
+            <clr-icon shape="list" clrVerticalNavIcon></clr-icon>
+            Listagem
+          </a>
+          <a clrVerticalNavLink [routerLink]="['/empreedimentos', 'novo']" routerLinkActive="active">
+            <clr-icon shape="plus" clrVerticalNavIcon></clr-icon>
+            Novo
+          </a>
+        </clr-vertical-nav-group-children>
+      </clr-vertical-nav-group>
     </clr-vertical-nav>
   </div>
 </div>
