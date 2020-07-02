@@ -71,16 +71,13 @@ namespace SmartBuild.Services.Customers
             {
                 var existingCustomer = await _context.Customers.GetyByIdAsync(customerId);
 
-                if (existingCustomer != null)
-                {
-                    existingCustomer.Name = customer.Name;
+                if (existingCustomer == null) return null;
 
-                    _context.Update(existingCustomer);
-                    await _context.SaveChangesAsync();
-                    return _mapper.Map<CustomerModel>(existingCustomer);
-                }
+                existingCustomer = _mapper.Map<Customer>(customer);
 
-                return null;
+                _context.Update(existingCustomer);
+                await _context.SaveChangesAsync();
+                return _mapper.Map<CustomerModel>(existingCustomer);
             }
             catch (Exception ex)
             {

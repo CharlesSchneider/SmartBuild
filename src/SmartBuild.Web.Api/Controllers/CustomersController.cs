@@ -35,7 +35,7 @@ namespace SmartBuild.Web.Api.Controllers
         }
 
         [HttpPut("{customerId}")]
-        public async Task<CustomerModel> PutAsync(int customerId, [FromBody]CustomerSave customer)
+        public async Task<CustomerModel> PutAsync(int customerId, [FromBody] CustomerSave customer)
         {
             var result = await _customersService.UpdateAsync(customerId, customer);
             return result;
@@ -45,6 +45,13 @@ namespace SmartBuild.Web.Api.Controllers
         public async Task DeleteAsync(int customerId)
         {
             await _customersService.DeleteAsync(customerId);
+        }
+
+        [HttpPatch("{customerId}")]
+        public async Task<CustomerModel> PatchAsync(int customerId, [FromBody] CustomerSave customer)
+        {
+            var result = await _customersService.UpdateAsync(customerId, customer);
+            return result;
         }
     }
 }
