@@ -1,0 +1,3 @@
+﻿IF image doesn't exist, execute on PowerShell
+
+	docker build -t charlesschneider/smartbuild .

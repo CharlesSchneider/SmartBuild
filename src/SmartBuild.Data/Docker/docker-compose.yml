@@ -2,7 +2,10 @@ version: '3'
 
 services:
   mssql:
-    image: mcr.microsoft.com/mssql/server:2017-latest
+    image: charlesschneider/smartbuild
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: mssql
     environment:
       - ACCEPT_EULA="Y"
@@ -11,7 +14,8 @@ services:
     ports:
       - "1433:1433"
     volumes:
-    - mssql-data:/var/opt/mssql/data
+     - mssql:/var/opt/mssql/data
 
 volumes:
-  mssql-data:
+    mssql:
+     
