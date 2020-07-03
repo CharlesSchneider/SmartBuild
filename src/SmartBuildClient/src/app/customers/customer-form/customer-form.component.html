@@ -1,4 +1,14 @@
 <form clrForm clrLayout="vertical" [formGroup]="form">
+  <app-page-header pageTitle="Novo Cliente">
+    <button class="btn btn-primary">
+      <clr-icon shape="check"></clr-icon>
+      {{Messages.save}}
+    </button>
+    <button class="btn btn-outline" (click)="cancelAddingCustomer()">
+      <clr-icon shape="undo"></clr-icon>
+      {{Messages.cancel}}
+    </button>
+  </app-page-header>
   <clr-input-container>
     <label>Field 1 label</label>
     <input clrInput type="text" formControlName="name" />
@@ -6,3 +16,5 @@
     <clr-control-error>Error message that appears after focus is lost and control is invalid</clr-control-error>
   </clr-input-container>
 </form>
+
+<app-confirmation-modal></app-confirmation-modal>

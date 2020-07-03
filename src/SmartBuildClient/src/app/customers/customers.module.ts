@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CustomersRoutingModule } from './customers-routing.module';
 import { CustomersListComponent } from './customers-list/customers-list.component';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
-import { ClrDatagridModule, ClrFormsModule } from '@clr/angular';
+import { ClrDatagridModule, ClrFormsModule, ClrIconModule } from '@clr/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../_shared/shared.module';
 
@@ -17,7 +17,8 @@ import { SharedModule } from '../_shared/shared.module';
     CustomersRoutingModule,
     SharedModule,
     ClrDatagridModule,
-    ClrFormsModule
+    ClrFormsModule,
+    ClrIconModule
   ]
 })
 export class CustomersModule { }
