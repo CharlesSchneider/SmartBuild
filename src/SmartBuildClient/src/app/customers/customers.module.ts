@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { CustomersRoutingModule } from './customers-routing.module';
 import { CustomersListComponent } from './customers-list/customers-list.component';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
-import { ClrDatagridModule, ClrFormsModule, ClrIconModule } from '@clr/angular';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ClrDatagridModule, ClrFormsModule, ClrIconModule, ClrCommonFormsModule } from '@clr/angular';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from '../_shared/shared.module';
 
 
@@ -13,12 +13,14 @@ import { SharedModule } from '../_shared/shared.module';
   declarations: [CustomersListComponent, CustomerFormComponent],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     CustomersRoutingModule,
     SharedModule,
     ClrDatagridModule,
     ClrFormsModule,
-    ClrIconModule
+    ClrIconModule,
+    ClrCommonFormsModule
   ]
 })
 export class CustomersModule { }

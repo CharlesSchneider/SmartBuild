@@ -1,7 +1,9 @@
 export const Messages = {
-  ok: "OK",
-  cancel: "Cancelar",
-  save: "Salvar",
-  confirm: "Confirmar",
+  appName: 'SmartBuild',
+  customerName: 'Baldasso',
+  ok: 'OK',
+  cancel: 'Cancelar',
+  save: 'Salvar',
+  confirm: 'Confirmar'
 
 }
