@@ -1,20 +1,55 @@
-<form clrForm clrLayout="vertical" [formGroup]="form">
-  <app-page-header pageTitle="Novo Cliente">
-    <button class="btn btn-primary">
-      <clr-icon shape="check"></clr-icon>
-      {{Messages.save}}
-    </button>
-    <button class="btn btn-outline" (click)="cancelAddingCustomer()">
-      <clr-icon shape="undo"></clr-icon>
-      {{Messages.cancel}}
-    </button>
-  </app-page-header>
-  <clr-input-container>
-    <label>Field 1 label</label>
-    <input clrInput type="text" formControlName="name" />
-    <clr-control-helper>Helper text that shows while it is pristine and valid</clr-control-helper>
-    <clr-control-error>Error message that appears after focus is lost and control is invalid</clr-control-error>
-  </clr-input-container>
-</form>
+<app-page-header pageTitle="Novo Cliente">
+  <button class="btn btn-secondary">
+    {{Messages.cancel}}
+  </button>
+  <button class="btn btn-primary">
+    {{Messages.save}}
+  </button>
+</app-page-header>
 
-<app-confirmation-modal></app-confirmation-modal>
+<form autocomplete="off">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Nome</label>
+      <input type="text" class="form-control" id="inputEmail4" autocomplete="off">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Password</label>
+      <input type="text" class="form-control" id="inputPassword4" autocomplete="off">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Address</label>
+    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+  </div>
+  <div class="form-group">
+    <label for="inputAddress2">Address 2</label>
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">City</label>
+      <input type="text" class="form-control" id="inputCity">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">State</label>
+      <select id="inputState" class="form-control">
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputZip">Zip</label>
+      <input type="text" class="form-control" id="inputZip">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div>
+  <button class="btn btn-lg btn-outline-primary" (click)="open()">Launch demo modal</button>
+</form>

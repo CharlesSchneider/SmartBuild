@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { ConfirmationModalComponent } from 'src/app/_shared/confirmation-modal/confirmation-modal.component';
 import { BaseComponent } from 'src/app/_shared/base/base.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from 'src/app/_shared/modals/modal.service';
 
 @Component({
   selector: 'app-customer-form',
@@ -12,12 +13,12 @@ import { BaseComponent } from 'src/app/_shared/base/base.component';
 })
 export class CustomerFormComponent extends BaseComponent implements OnInit {
 
-  @ViewChild(ConfirmationModalComponent) confirmationModal: ConfirmationModalComponent;
   form: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private router: Router) {
+    private router: Router,
+    private modalService: ModalService) {
     super();
   }
 
@@ -27,17 +28,7 @@ export class CustomerFormComponent extends BaseComponent implements OnInit {
     });
   }
 
-  cancelAddingCustomer() {
-    this.confirmationModal.title = "Cancelar Inclusão";
-    this.confirmationModal.message = "A inclusão deste Cliente será cancelada. Confirmar?";
-    this.confirmationModal.confirmButtonText = this.Messages.confirm;
-    this.confirmationModal.confirm.subscribe((x) => this.cancelAddingCustomerConfirmed(x));
-    this.confirmationModal.show();
-  }
-
-  cancelAddingCustomerConfirmed($event) {
-    if ($event) {
-      this.router.navigate(['/clientes', 'listagem']);
-    }
+  open() {
+    this.modalService.showConfirmationModal("Cancelar Inclusão", "Este é um teste para ver o quanto uma mensagem pode ser exibida dentro de uma modal com um texto bem grande mesmo!. Bá! Só queero ver!", undefined, undefined, false);
   }
 }

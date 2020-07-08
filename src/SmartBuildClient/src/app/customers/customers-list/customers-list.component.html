@@ -1,21 +1,7 @@
 <app-page-header pageTitle="Clientes">
-  <div class="btn-group btn-primary btn-icon">
-    <button class="btn" title="Adicionar Cliente">
-      <clr-icon shape="add" title="user"></clr-icon>
+  <div class="btn btn-primary">
+    <button class="btn">Adicionar Cliente
     </button>
   </div>
 </app-page-header>
-
-<clr-datagrid>
-  <clr-dg-column>User ID</clr-dg-column>
-  <clr-dg-column>Name</clr-dg-column>
-  <clr-dg-column>Creation date</clr-dg-column>
-  <clr-dg-column>Favorite color</clr-dg-column>
-  <clr-dg-row *ngFor="let user of users">
-    <clr-dg-cell>{{user.id}}</clr-dg-cell>
-    <clr-dg-cell>{{user.name}}</clr-dg-cell>
-    <clr-dg-cell>{{user.creation}}</clr-dg-cell>
-    <clr-dg-cell>{{user.color}}</clr-dg-cell>
-  </clr-dg-row>
-  <clr-dg-footer>{{users.length}} users</clr-dg-footer>
-</clr-datagrid>
+Listagem de Clientes 1<br />

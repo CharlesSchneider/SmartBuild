@@ -1,39 +1,4 @@
-<div class="main-container">
-  <app-header></app-header>
-  <div class="content-container">
-    <div class="content-area">
-      <router-outlet></router-outlet>
-    </div>
-    <!-- https://clarity.design/documentation/vertical-nav/nav-groups/normal/pidgey -->
-    <clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed">
-      <clr-vertical-nav-group routerLinkActive="active">
-        <clr-icon shape="user" clrVerticalNavIcon></clr-icon>
-        Clientes
-        <clr-vertical-nav-group-children>
-          <a clrVerticalNavLink [routerLink]="['/clientes', 'listagem']" routerLinkActive="active">
-            <clr-icon shape="list" clrVerticalNavIcon></clr-icon>
-            Listagem
-          </a>
-          <a clrVerticalNavLink [routerLink]="['/clientes', 'novo']" routerLinkActive="active">
-            <clr-icon shape="plus" clrVerticalNavIcon></clr-icon>
-            Novo
-          </a>
-        </clr-vertical-nav-group-children>
-      </clr-vertical-nav-group>
-      <clr-vertical-nav-group routerLinkActive="active">
-        <clr-icon shape="building" clrVerticalNavIcon></clr-icon>
-        Empreendimentos
-        <clr-vertical-nav-group-children>
-          <a clrVerticalNavLink [routerLink]="['/empreedimentos', 'listagem']" routerLinkActive="active">
-            <clr-icon shape="list" clrVerticalNavIcon></clr-icon>
-            Listagem
-          </a>
-          <a clrVerticalNavLink [routerLink]="['/empreedimentos', 'novo']" routerLinkActive="active">
-            <clr-icon shape="plus" clrVerticalNavIcon></clr-icon>
-            Novo
-          </a>
-        </clr-vertical-nav-group-children>
-      </clr-vertical-nav-group>
-    </clr-vertical-nav>
-  </div>
+<app-header class="mb-8"></app-header>
+<div class="container">
+  <router-outlet></router-outlet>
 </div>
