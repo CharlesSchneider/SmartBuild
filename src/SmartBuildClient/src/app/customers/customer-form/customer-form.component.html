@@ -1,5 +1,5 @@
 <app-page-header pageTitle="Novo Cliente">
-  <button class="btn btn-secondary">
+  <button class="btn btn-secondary" (click)="cancelAdding()">
     {{Messages.cancel}}
   </button>
   <button class="btn btn-primary">
@@ -51,5 +51,4 @@
       </label>
     </div>
   </div>
-  <button class="btn btn-lg btn-outline-primary" (click)="open()">Launch demo modal</button>
 </form>

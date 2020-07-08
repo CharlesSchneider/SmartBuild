@@ -14,14 +14,11 @@
           Clientes
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" [routerLink]="['/clientes']">Listagem</a>
-          <a class="dropdown-item" [routerLink]="['/clientes', 'novo']">Novo Cliente</a>
+          <a class="dropdown-item" [routerLink]="['/clientes', 'listagem']" routerLinkActive="active">Listagem</a>
+          <a class="dropdown-item" [routerLink]="['/clientes', 'novo']" routerLinkActive="active">Novo Cliente</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Contratos</a>
         </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>
     </ul>
     <!-- <form class="form-inline my-2 my-lg-0">

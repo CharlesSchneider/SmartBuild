@@ -1,11 +1,14 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{modalTitle}}</h4>
+  <h5 class="modal-title">{{modalTitle}}</h5>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
-  <p *ngIf="!alert; else alertMessage">{{modalMessage}}</p>
+  <div *ngIf="!alert; else alertMessage">
+    <p>{{modalMessage}}</p>
+    <small *ngIf="tip.length > 0" class="text-black-50">{{tip}}</small>
+  </div>
   <ng-template #alertMessage>
     <div class="alert alert-danger" role="alert">
       {{modalMessage}}
@@ -14,7 +17,6 @@
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-secondary"
-    (click)="activeModal.close('Close click')">{{cancelButtonText}}</button>
-  <button type="button" class="btn btn-outline-primary"
-    (click)="activeModal.close('Close click')">{{confirmButtonText}}</button>
+    (click)="activeModal.close(false)">{{cancelButtonText}}</button>
+  <button type="button" class="btn btn-outline-primary" (click)="activeModal.close(true)">{{confirmButtonText}}</button>
 </div>

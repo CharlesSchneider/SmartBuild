@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 
 @Injectable({
@@ -12,17 +12,23 @@ export class ModalService {
   public showConfirmationModal(
     title?: string,
     message?: string,
+    tip?: string,
     confirmButtonText?: string,
     cancelButtonText?: string,
-    alert?: boolean) {
+    alert?: boolean): NgbModalRef {
 
     const modalRef = this.modalService.open(ConfirmationModalComponent);
+
     if (title) {
       modalRef.componentInstance.modalTitle = title;
     }
 
     if (message) {
       modalRef.componentInstance.modalMessage = message;
+    }
+
+    if (tip) {
+      modalRef.componentInstance.tip = tip;
     }
 
     if (confirmButtonText) {
@@ -36,5 +42,7 @@ export class ModalService {
     if (alert) {
       modalRef.componentInstance.alert = alert;
     }
+
+    return modalRef;
   }
 }

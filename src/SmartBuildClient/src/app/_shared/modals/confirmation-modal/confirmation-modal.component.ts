@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -9,6 +9,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class ConfirmationModalComponent implements OnInit {
   @Input() modalTitle = "";
   @Input() modalMessage = "";
+  @Input() tip = "";
   @Input() confirmButtonText = "Confirmar";
   @Input() cancelButtonText = "Cancelar";
   @Input() alert = false;
@@ -17,5 +18,4 @@ export class ConfirmationModalComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

@@ -9,10 +9,10 @@ const routes: Routes = [
     path: '', redirectTo: 'listagem', pathMatch: 'full'
   },
   {
-    path: 'listagem', component: CustomersListComponent
+    path: 'listagem', component: CustomersListComponent, pathMatch: 'full'
   },
   {
-    path: 'novo', component: CustomerFormComponent
+    path: 'novo', component: CustomerFormComponent, pathMatch: 'full'
   }
 ];
 
