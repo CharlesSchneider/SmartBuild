@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { BaseComponent } from 'src/app/_shared/base/base.component';
-import { ModalService } from 'src/app/_shared/modals/modal.service';
+import { BaseComponent } from 'src/app/shared/base/base.component';
+import { ModalService } from 'src/app/shared/modals/modal.service';
 
 @Component({
   selector: 'app-customer-form',
@@ -36,5 +36,13 @@ export class CustomerFormComponent extends BaseComponent implements OnInit {
           this.router.navigate(['/clientes', 'listagem']);
         }
       })
+  }
+
+  public get phoneMask() {
+    return "(00)0000-00009";
+  }
+
+  public get cpfMask() {
+    return "000.000.000-00";
   }
 }

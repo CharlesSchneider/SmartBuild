@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Messages } from 'src/app/_shared/messages';
+import { Messages } from 'src/app/shared/messages';
 
 @Component({
   selector: 'app-header',

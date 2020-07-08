@@ -5,7 +5,9 @@ import { CustomersRoutingModule } from './customers-routing.module';
 import { CustomersListComponent } from './customers-list/customers-list.component';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { SharedModule } from '../_shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
+import { NgxMaskModule } from 'ngx-mask';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { SharedModule } from '../_shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     CustomersRoutingModule,
-    SharedModule
+    SharedModule,
+    NgbModule,
+    NgxMaskModule
   ]
 })
 export class CustomersModule { }
