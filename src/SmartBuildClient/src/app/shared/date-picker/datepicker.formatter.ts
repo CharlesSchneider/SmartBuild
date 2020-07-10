@@ -13,7 +13,7 @@ export class CustomAdapter extends NgbDateAdapter<string> {
 
   fromModel(value: string | null): NgbDateStruct | null {
     if (value) {
-      let date = value.split(this.DELIMITER);
+      const date = value.split(this.DELIMITER);
       return {
         day: parseInt(date[0], 10),
         month: parseInt(date[1], 10),
@@ -40,7 +40,7 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
 
   parse(value: string): NgbDateStruct | null {
     if (value) {
-      let date = value.split(this.DELIMITER);
+      const date = value.split(this.DELIMITER);
       return {
         day: parseInt(date[0], 10),
         month: parseInt(date[1], 10),
@@ -54,26 +54,3 @@ export class CustomDateParserFormatter extends NgbDateParserFormatter {
     return date ? date.day + this.DELIMITER + date.month + this.DELIMITER + date.year : '';
   }
 }
-
-// @Component({
-//   selector: 'ngbd-datepicker-adapter',
-//   templateUrl: './datepicker-adapter.html',
-
-//   // NOTE: For this example we are only providing current component, but probably
-//   // NOTE: you will want to provide your main App Module
-//   providers: [
-//     { provide: NgbDateAdapter, useClass: CustomAdapter },
-//     { provide: NgbDateParserFormatter, useClass: CustomDateParserFormatter }
-//   ]
-// })
-// export class NgbdDatepickerAdapter {
-
-//   model1: string;
-//   model2: string;
-
-//   constructor(private ngbCalendar: NgbCalendar, private dateAdapter: NgbDateAdapter<string>) { }
-
-//   get today() {
-//     return this.dateAdapter.toModel(this.ngbCalendar.getToday())!;
-//   }
-// }

@@ -10,16 +10,9 @@ import { ContentComponent } from './_layout/content/content.component';
 import { HeaderComponent } from './_layout/header/header.component';
 import { FooterComponent } from './_layout/footer/footer.component';
 import { SharedModule } from './shared/shared.module';
-import { NgbModule, NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
-import { CustomAdapter, CustomDateParserFormatter } from './shared/datepicker.formatter';
-
-// https://www.npmjs.com/package/ngx-mask
-const maskConfig: Partial<IConfig> = {
-  validation: false,
-  dropSpecialCharacters: true,
-  showMaskTyped: false
-};
+import { GlobalMaskConfig } from './shared/globalmask.config';
 
 @NgModule({
   declarations: [
@@ -36,7 +29,7 @@ const maskConfig: Partial<IConfig> = {
     ReactiveFormsModule,
     SharedModule,
     NgbModule,
-    NgxMaskModule.forRoot(maskConfig)
+    NgxMaskModule.forRoot(GlobalMaskConfig)
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' }

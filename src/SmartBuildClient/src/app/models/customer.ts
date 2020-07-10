@@ -4,9 +4,9 @@ export class Customer {
   customerId: number;
   name: string;
   birthDate?: Date;
-  RG?: string;
-  CPF?: string;
-  Address: Address;
+  rg?: string;
+  cpf?: string;
+  address: Address;
   homePhone?: string;
   workPhone?: string;
   referencePhone?: string;
