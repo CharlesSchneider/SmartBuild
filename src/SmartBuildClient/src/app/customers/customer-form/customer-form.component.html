@@ -6,10 +6,13 @@
     {{Messages.save}}
   </button>
 </app-page-header>
-<form [formGroup]="form" autocomplete="off">
+<form [formGroup]="form" onsubmit="submit()" autocomplete="off">
   <div class="form-group">
     <label for="name">Nome</label>
     <input type="text" id="name" class="form-control" formControlName="name">
+    <div *ngIf="form.get('name').errors?.required">
+      Informe o Nome
+    </div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
@@ -25,55 +28,60 @@
     </div>
     <div class="form-group col-md-2">
       <label for="rg">RG</label>
-      <input type="text" id="rg" class="form-control">
+      <input type="text" id="rg" class="form-control" formControlName="rg">
     </div>
     <div class="form-group col-md-2">
       <label for="cpf">CPF</label>
-      <input type="text" id="cpf" class="form-control" [mask]="cpfMask">
+      <input type="text" id="cpf" class="form-control" [mask]="cpfMask" formControlName="cpf">
     </div>
   </div>
   <div class="form-row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-3">
       <label for="phone">Telefone</label>
-      <input type="tel" class="form-control" id="phone" [mask]="phoneMask">
+      <input type="tel" class="form-control" id="phone" [mask]="phoneMask" formControlName="homePhone">
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-3">
       <label for="cellphone">Celular</label>
-      <input type="tel" class="form-control" id="cellphone" [mask]="phoneMask">
+      <input type="tel" class="form-control" id="cellphone" [mask]="phoneMask" formControlName="cellPhone">
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-3">
+      <label for="workPhone">Telefone do Trabalho</label>
+      <input type="tel" class="form-control" id="workPhone" [mask]="phoneMask" formControlName="workPhone">
+    </div>
+    <div class="form-group col-md-3">
       <label for="referencephone">Telefone Referência</label>
-      <input type="tel" class="form-control" id="referencephone" [mask]="phoneMask">
+      <input type="tel" class="form-control" id="referencephone" [mask]="phoneMask" formControlName="referencePhone">
     </div>
   </div>
-  <div class="form-row">
+  <div class="form-row" formGroupName="address">
     <div class="form-group col-md-10">
       <label for="address">Endereço</label>
-      <input type="text" class="form-control" id="address">
+      <input type="text" class="form-control" id="address" formControlName="street">
     </div>
     <div class="form-group col-md-2">
       <label for="number">Número</label>
-      <input type="text" class="form-control" id="number">
+      <input type="text" class="form-control" id="number" formControlName="number">
     </div>
     <div class="form-group col-md-3">
       <label for="neighborhood">Bairro</label>
-      <input type="text" class="form-control" id="neighborhood">
+      <input type="text" class="form-control" id="neighborhood" formControlName="neighborhood">
     </div>
     <div class="form-group col-md-3">
       <label for="city">Cidade</label>
-      <input type="text" class="form-control" id="city">
+      <input type="text" class="form-control" id="city" formControlName="city">
     </div>
     <div class="form-group col-md-1">
       <label for="state">Estado</label>
-      <input type="text" class="form-control" id="state">
+      <input type="text" class="form-control" id="state" formControlName="state">
     </div>
     <div class="form-group col-md-2">
       <label for="zipcode">CEP</label>
-      <input type="text" class="form-control" id="zipcode">
+      <input type="text" class="form-control" id="zipcode" formControlName="zipCode">
     </div>
     <div class="form-group col-md-3">
       <label for="reference">Referência</label>
-      <input type="text" class="form-control" id="reference">
+      <input type="text" class="form-control" id="reference" formControlName="reference">
     </div>
   </div>
+  <button class="btn btn-primary" type="submit">Enviar!</button>
 </form>

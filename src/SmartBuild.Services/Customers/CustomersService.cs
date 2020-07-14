@@ -31,7 +31,7 @@ namespace SmartBuild.Services.Customers
 
             try
             {
-                customers = _mapper.ProjectTo<CustomerModel>(_context.Customers.AsNoTracking())
+                customers = _mapper.ProjectTo<CustomerModel>(_context.Customers.Include(x => x.Address).AsNoTracking())
                                    .AsNoTracking()
                                    .ToListAsync();
             }

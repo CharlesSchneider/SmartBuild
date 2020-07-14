@@ -7,4 +7,4 @@ export interface Address {
   state: string;
   zipCode: string;
   reference: string;
-}
+};

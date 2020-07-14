@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SmartBuild.Entities;
 using SmartBuild.Entities.Customers;
 using SmartBuild.Services.Customers.Models;
 
@@ -9,6 +10,7 @@ namespace SmartBuild.Services
         public Mappings()
         {
             CreateMap<Customer, CustomerModel>();
+            CreateMap<Address, AddressModel>();
             CreateMap<CustomerSave, Customer>();
         }
     }

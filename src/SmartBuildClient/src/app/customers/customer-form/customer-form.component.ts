@@ -1,27 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BaseComponent } from 'src/app/shared/base/base.component';
-import { ModalService } from 'src/app/shared/modals/modal.service';
+import { BaseComponent } from 'src/app/shared/base.component';
+import { ApiConstants } from 'src/app/shared/api/api.service';
 
 @Component({
   selector: 'sb-customer-form',
   templateUrl: './customer-form.component.html',
   styleUrls: ['./customer-form.component.css']
 })
-export class CustomerFormComponent extends BaseComponent implements OnInit {
+export class CustomerFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  form: FormGroup;
-
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private modalService: ModalService) {
-    super();
-  }
+  constructor() { super(); }
 
   ngOnInit(): void {
+
+    this.contentService.lockMenus();
+
     this.form = this.fb.group({
       customerId: [null],
       name: [null],
@@ -45,25 +40,43 @@ export class CustomerFormComponent extends BaseComponent implements OnInit {
       email: [null],
       isDeleted: [null]
     });
+
   }
 
-  // get birthDate() {
-  //   return '';
-  // }
+  getValidationClass() {
+    return this.form.get('name').errors ? 'is-invalid' : '';
+  }
+
+  getFeedbackClass() {
+    return this.form.get('name').errors ? 'invalid-feedback' : '';
+  }
 
   save() {
-    console.log('form', this.form.value);
+    console.log('form', this.form);
+    this.apiService.get(ApiConstants.customers).subscribe();
+  }
+
+  submit() {
+    console.log('submit');
   }
 
   cancelAdding() {
-    this.modalService
-      .showConfirmationModal('Cancelar Inclusão', 'Deseja cancelar a inclusão deste cliente?', 'Os dados informados serão perdidos e você será direcionado para a listagem de clientes.', undefined, undefined, false)
-      .result
-      .then(result => {
-        if (result) {
-          this.router.navigate(['/clientes', 'listagem']);
-        }
-      });
+    if (this.form.dirty) {
+      this.modalService
+        .showConfirmationModal('Cancelar Inclusão', 'Deseja cancelar a inclusão deste cliente?', 'Os dados informados serão perdidos e você será direcionado para a listagem de clientes.', undefined, undefined, false)
+        .result
+        .then(result => {
+          if (result) {
+            this.navigateToListing();
+          }
+        });
+    } else {
+      this.navigateToListing();
+    }
+  }
+
+  private navigateToListing() {
+    this.router.navigate(['/clientes', 'listagem']);
   }
 
   get dateMask() {
@@ -76,5 +89,9 @@ export class CustomerFormComponent extends BaseComponent implements OnInit {
 
   public get cpfMask() {
     return '000.000.000-00';
+  }
+
+  ngOnDestroy(): void {
+    this.contentService.lockMenus(false);
   }
 }

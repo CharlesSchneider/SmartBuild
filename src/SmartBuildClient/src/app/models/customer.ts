@@ -1,4 +1,4 @@
-import { Address } from "cluster";
+import { Address } from './address';
 
 export class Customer {
   customerId: number;
@@ -13,4 +13,4 @@ export class Customer {
   cellPhone?: string;
   email?: string;
   isDeleted: boolean;
-}
+};

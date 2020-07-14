@@ -1,12 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { HeaderComponent } from '../header/header.component';
+import { ContentService } from 'src/app/shared/content.service';
 
 @Component({
-  selector: 'app-content',
+  selector: 'sb-content',
   templateUrl: './content.component.html',
   styleUrls: ['./content.component.css']
 })
 export class ContentComponent implements OnInit {
-  constructor() { }
+  @ViewChild(HeaderComponent) header: HeaderComponent;
+
+  constructor(private contentService: ContentService) {
+    contentService.menusLocked$
+      .subscribe(lock => {
+        this.header.lockMenus = lock;
+      });
+  }
 
   ngOnInit(): void {
   }

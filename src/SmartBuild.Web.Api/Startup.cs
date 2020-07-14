@@ -24,6 +24,17 @@ namespace SmartBuild.Web.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyHeader();
+                        builder.AllowAnyOrigin();
+                        builder.AllowAnyMethod();
+                    });
+            });
+
             services.AddControllers()
                 .AddFluentValidation(config =>
                 {
@@ -56,6 +67,8 @@ namespace SmartBuild.Web.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
