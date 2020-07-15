@@ -13,6 +13,7 @@ import { SharedModule } from './shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { GlobalMaskConfig } from './shared/globalmask.config';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,15 @@ import { GlobalMaskConfig } from './shared/globalmask.config';
     ReactiveFormsModule,
     SharedModule,
     NgbModule,
-    NgxMaskModule.forRoot(GlobalMaskConfig)
+    NgxMaskModule.forRoot(GlobalMaskConfig),
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      progressBar: true,
+      progressAnimation: 'increasing',
+      closeButton: true,
+      toastClass: 'ngx-toastr sb-ngx-toastr shadow',
+      positionClass: 'toast-top-center'
+    })
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' }

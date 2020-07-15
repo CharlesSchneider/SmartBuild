@@ -3,6 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { retry, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { ContentService } from '../content.service';
+import { AppInjector } from '../app-injector';
 
 export const ApiConstants = {
   customers: 'customers'
@@ -33,19 +35,23 @@ export class ApiService {
   }
 
   handleError(error: HttpErrorResponse) {
+    const injector = AppInjector.getInjector();
+    const contentService = injector.get(ContentService);
+
     console.log('handleError', error);
 
-    let errorMessage = 'Unknown error!';
+    let errorMessage = 'Erro desconhecido.';
 
-    // if (error.error instanceof ErrorEvent) {
-    //   // Client-side errors
-    //   errorMessage = `Error: ${error.error.message}`;
-    // } else {
-    //   // Server-side errors
-    //   errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    // }
+    if (error.error instanceof ErrorEvent) {
+      // Client-side errors
+      errorMessage = error.error.message;
+    } else {
+      // Server-side errors
+      errorMessage = error.message;
+    }
 
-    // window.alert(errorMessage);
+    contentService.showErrorMessage(errorMessage);
+
     return throwError(errorMessage);
   }
 }

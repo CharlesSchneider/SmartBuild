@@ -22,7 +22,6 @@ namespace SmartBuild.Web.Api.Controllers
         public async IAsyncEnumerable<CustomerModel> GetAsync()
         {
             var customers = _customersService.GetCustomersAsync();
-            Thread.Sleep(3000);
             await foreach (var customer in customers)
             {
                 yield return customer;

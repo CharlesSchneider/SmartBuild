@@ -15,8 +15,6 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
 
   ngOnInit(): void {
 
-    this.contentService.lockMenus();
-
     this.form = this.fb.group({
       customerId: [null],
       name: [null],
@@ -53,15 +51,16 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
 
   save() {
     console.log('form', this.form);
-    this.apiService.get(ApiConstants.customers).subscribe();
-  }
 
-  submit() {
-    console.log('submit');
+    // this.contentService.lockMenus();
+    // this.contentService.showErrorMessage('houve um erro.');
+
+    this.toastrService.info('Cliente salvo com sucesso!', 'Novo Cliente');
   }
 
   cancelAdding() {
     if (this.form.dirty) {
+      this.toastrService.clear();
       this.modalService
         .showConfirmationModal('Cancelar Inclusão', 'Deseja cancelar a inclusão deste cliente?', 'Os dados informados serão perdidos e você será direcionado para a listagem de clientes.', undefined, undefined, false)
         .result

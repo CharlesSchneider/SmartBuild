@@ -7,6 +7,7 @@ import { ApiService } from './api/api.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoaderService } from './loader/loader.service';
+import { ToastrService, Toast } from 'ngx-toastr';
 
 @Component({
   selector: 'sb-base',
@@ -31,6 +32,7 @@ export class BaseComponent implements OnInit {
   protected fb: FormBuilder;
   protected router: Router;
   protected loaderService: LoaderService;
+  protected toastrService: ToastrService;
 
   constructor() {
     const injector = AppInjector.getInjector();
@@ -40,8 +42,8 @@ export class BaseComponent implements OnInit {
     this.fb = injector.get(FormBuilder);
     this.router = injector.get(Router);
     this.loaderService = injector.get(LoaderService);
-
     this.loaderService.isLoading.subscribe(loading => this.isLoading = loading);
+    this.toastrService = injector.get(ToastrService);
   }
 
   ngOnInit(): void {

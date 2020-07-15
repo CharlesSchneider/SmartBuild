@@ -6,7 +6,7 @@
     {{Messages.save}}
   </button>
 </app-page-header>
-<form [formGroup]="form" onsubmit="submit()" autocomplete="off">
+<form [formGroup]="form" autocomplete="off">
   <div class="form-group">
     <label for="name">Nome</label>
     <input type="text" id="name" class="form-control" formControlName="name">
@@ -83,5 +83,4 @@
       <input type="text" class="form-control" id="reference" formControlName="reference">
     </div>
   </div>
-  <button class="btn btn-primary" type="submit">Enviar!</button>
 </form>

@@ -13,6 +13,9 @@ const routes: Routes = [
   },
   {
     path: 'novo', component: CustomerFormComponent, pathMatch: 'full'
+  },
+  {
+    path: ':id/editar', component: CustomerFormComponent, pathMatch: 'full'
   }
 ];
 
