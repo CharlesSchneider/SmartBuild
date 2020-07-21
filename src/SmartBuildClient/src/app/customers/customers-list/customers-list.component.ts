@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Customer } from '../../models/customer';
-import { ApiService, ApiConstants } from '../../shared/api/api.service';
+import { ApiConstants } from '../../shared/api/api.service';
 import { BaseComponent } from 'src/app/shared/base.component';
+import { CustomerFormComponent } from '../customer-form/customer-form.component';
 
 @Component({
   selector: 'sb-customers-list',
@@ -17,10 +18,12 @@ export class CustomersListComponent extends BaseComponent implements OnInit {
     this.apiService.get<Customer[]>(ApiConstants.customers)
       .subscribe(response => {
         this.customers = response;
-      });
+      },
+        this.handleError);
   }
 
   newClient() {
     this.router.navigate(['/clientes', 'novo']);
+    // this.modalService.showContentModal(CustomerFormComponent);
   }
 }

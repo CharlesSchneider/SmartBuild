@@ -52,6 +52,11 @@ namespace SmartBuild.Services.Customers
         {
             try
             {
+                if (customer.Address?.AddressId == default(int))
+                {
+                    customer.Address = null;
+                }
+
                 var newCustomer = _mapper.Map<Customer>(customer);
                 await _context.AddAsync(newCustomer);
                 await _context.SaveChangesAsync();

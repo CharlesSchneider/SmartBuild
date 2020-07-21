@@ -9,7 +9,6 @@ import { SharedModule } from '../shared/shared.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
 @NgModule({
   declarations: [CustomersListComponent, CustomerFormComponent],
   imports: [

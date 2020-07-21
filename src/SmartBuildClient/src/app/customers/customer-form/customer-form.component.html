@@ -1,10 +1,13 @@
 <app-page-header pageTitle="Novo Cliente">
-  <button class="btn btn-secondary" (click)="cancelAdding()">
+  <button class="btn btn-outline-dark" (click)="cancelAdding()" [disabled]="isSaving">
     {{Messages.cancel}}
   </button>
-  <button class="btn btn-primary" (click)="save()">
-    {{Messages.save}}
+  <button class="btn btn-primary" (click)="save()" [disabled]="isSaving">
+    <span *ngIf="!isSaving">{{Messages.save}}</span>
+    <span *ngIf="isSaving">{{Messages.saving}} </span>
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isSaving"></span>
   </button>
+
 </app-page-header>
 <form [formGroup]="form" autocomplete="off">
   <div class="form-group">
@@ -84,3 +87,30 @@
     </div>
   </div>
 </form>
+
+<!-- <div class="row mt-2 border-top">
+  <div class="col">
+    <div class="mt-2 float-sm-right">
+      <div class="row">
+        <div class="col">
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="keepIncluding" [disabled]="isSaving">
+            <label class="form-check-label" for="keepIncluding"
+              title="Mantém a janela aberta e permite incluir vários clientes em sequência">Continuar
+              Incluindo</label>
+          </div>
+        </div>
+        <button class="btn btn-outline-dark mr-2" (click)="cancelAdding()" [disabled]="isSaving">
+    {{Messages.cancel}}
+  </button>
+<div class="col-4">
+  <button class="btn btn-primary" (click)="save()" [disabled]="isSaving">
+    <span *ngIf="!isSaving">{{Messages.save}}</span>
+    <span *ngIf="isSaving">{{Messages.saving}} </span>
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isSaving"></span>
+  </button>
+</div>
+</div>
+</div>
+</div>
+</div> -->

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { NgbModal, NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
+import { ContentModalComponent } from './content-modal/content-modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -44,5 +45,13 @@ export class ModalService {
     }
 
     return modalRef;
+  }
+
+  public showContentModal(contentComponent: any) {
+    const modalRef = this.modalService.open(contentComponent, {
+      size: 'xl',
+      backdrop: 'static',
+      keyboard: false
+    });
   }
 }

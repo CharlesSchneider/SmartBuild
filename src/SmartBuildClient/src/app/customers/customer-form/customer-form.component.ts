@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { BaseComponent } from 'src/app/shared/base.component';
 import { ApiConstants } from 'src/app/shared/api/api.service';
+import { Customer } from 'src/app/models/customer';
+import { switchMap, catchError, mergeMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'sb-customer-form',
@@ -16,13 +18,13 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
   ngOnInit(): void {
 
     this.form = this.fb.group({
-      customerId: [null],
+      customerId: [0],
       name: [null],
       birthDate: [null],
       rg: [null],
       cpf: [null],
       address: this.fb.group({
-        addressId: [null],
+        addressId: [0],
         street: [null],
         number: [null],
         neighborhood: [null],
@@ -36,9 +38,8 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
       referencePhone: [null],
       cellPhone: [null],
       email: [null],
-      isDeleted: [null]
+      isDeleted: [false]
     });
-
   }
 
   getValidationClass() {
@@ -52,10 +53,25 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
   save() {
     console.log('form', this.form);
 
-    // this.contentService.lockMenus();
-    // this.contentService.showErrorMessage('houve um erro.');
+    this.startSaving();
 
-    this.toastrService.info('Cliente salvo com sucesso!', 'Novo Cliente');
+    this.apiService.post<Customer>(ApiConstants.customers, this.form.value)
+      .subscribe(customer => {
+        this.stopSaving();
+        this.toastrService.info('Cliente salvo com sucesso!', 'Novo Cliente');
+        this.router.navigate(['/clientes', customer.customerId, 'editar']);
+      });
+
+    // .subscribe(response => {
+    //   // this.customer = response;
+
+
+    // });
+
+    // setTimeout(() => {
+    //   this.stopSaving();
+    //   ;
+    // }, 3000);
   }
 
   cancelAdding() {

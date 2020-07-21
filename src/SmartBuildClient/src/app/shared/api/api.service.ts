@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, take } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { ContentService } from '../content.service';
 import { AppInjector } from '../app-injector';
@@ -21,7 +21,7 @@ export class ApiService {
   //
 
   private readonly API_URL = environment.apiUrl;
-  private readonly RETRIES = 3;
+  private readonly RETRIES = 0;
 
   constructor(private http: HttpClient) { }
 
@@ -30,6 +30,17 @@ export class ApiService {
     return this.http.get<T>(requestUrl)
       .pipe(
         retry(this.RETRIES),
+        take(1),
+        catchError(this.handleError)
+      );
+  }
+
+  public post<T>(url, data: T) {
+    const requestUrl = `${this.API_URL}/${url}`;
+    return this.http.post<T>(requestUrl, data)
+      .pipe(
+        retry(this.RETRIES),
+        take(1),
         catchError(this.handleError)
       );
   }
@@ -38,7 +49,7 @@ export class ApiService {
     const injector = AppInjector.getInjector();
     const contentService = injector.get(ContentService);
 
-    console.log('handleError', error);
+    console.log('Api Service HandleError', error);
 
     let errorMessage = 'Erro desconhecido.';
 

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { PageHeaderComponent } from './page-header/page-header.component';
-import { ConfirmationModalComponent } from './modals/confirmation-modal/confirmation-modal.component';
 import { ModalService } from './modals/modal.service';
 import { CustomAdapter, CustomDateParserFormatter } from './date-picker/datepicker.formatter';
 import { NgbDateAdapter, NgbDateParserFormatter, NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -17,6 +16,8 @@ import { LoaderComponent } from './loader/loader.component';
 import { LoaderService } from './loader/loader.service';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
 import { LoadingDataComponent } from './loading-data/loading-data.component';
+import { ConfirmationModalComponent } from './modals/confirmation-modal/confirmation-modal.component';
+import { ContentModalComponent } from './modals/content-modal/content-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LoadingDataComponent } from './loading-data/loading-data.component';
     DatePickerComponent,
     BaseComponent,
     LoaderComponent,
-    LoadingDataComponent
+    LoadingDataComponent,
+    ContentModalComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { LoadingDataComponent } from './loading-data/loading-data.component';
     PageHeaderComponent,
     DatePickerComponent,
     LoaderComponent,
-    LoadingDataComponent
+    LoadingDataComponent,
+    ContentModalComponent
   ],
   providers: [
     ModalService,
