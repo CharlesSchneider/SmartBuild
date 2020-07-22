@@ -1,6 +1,6 @@
 <app-page-header pageTitle="Novo Cliente">
-  <button class="btn btn-outline-dark" (click)="cancelAdding()" [disabled]="isSaving">
-    {{Messages.cancel}}
+  <button class="btn btn-outline-dark mr-1" (click)="cancelAdding()" [disabled]="isSaving">
+    {{Messages.back}}
   </button>
   <button class="btn btn-primary" (click)="save()" [disabled]="isSaving">
     <span *ngIf="!isSaving">{{Messages.save}}</span>

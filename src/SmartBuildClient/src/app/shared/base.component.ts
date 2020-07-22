@@ -113,7 +113,11 @@ export class BaseComponent implements OnInit {
       errorMessage = error.error.message;
     } else {
       // Server-side errors
-      errorMessage = error.message;
+      if (error.status && error.status === 400) {
+        errorMessage = 'Houve erros de Validação. Por favor, verifique.';
+      } else {
+        errorMessage = `Server error: ${error.message}`;
+      }
     }
 
     contentService.showErrorMessage(errorMessage);

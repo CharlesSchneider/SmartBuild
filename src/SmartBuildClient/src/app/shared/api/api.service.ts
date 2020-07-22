@@ -31,7 +31,7 @@ export class ApiService {
       .pipe(
         retry(this.RETRIES),
         take(1),
-        catchError(this.handleError)
+        // catchError(this.handleError)
       );
   }
 
@@ -41,28 +41,28 @@ export class ApiService {
       .pipe(
         retry(this.RETRIES),
         take(1),
-        catchError(this.handleError)
+        // catchError(this.handleError)
       );
   }
 
-  handleError(error: HttpErrorResponse) {
-    const injector = AppInjector.getInjector();
-    const contentService = injector.get(ContentService);
+  // handleError(error: HttpErrorResponse) {
+  //   const injector = AppInjector.getInjector();
+  //   const contentService = injector.get(ContentService);
 
-    console.log('Api Service HandleError', error);
+  //   console.log('Api Service HandleError', error);
 
-    let errorMessage = 'Erro desconhecido.';
+  //   let errorMessage = 'Erro desconhecido.';
 
-    if (error.error instanceof ErrorEvent) {
-      // Client-side errors
-      errorMessage = error.error.message;
-    } else {
-      // Server-side errors
-      errorMessage = error.message;
-    }
+  //   if (error.error instanceof ErrorEvent) {
+  //     // Client-side errors
+  //     errorMessage = error.error.message;
+  //   } else {
+  //     // Server-side errors
+  //     errorMessage = error.message;
+  //   }
 
-    contentService.showErrorMessage(errorMessage);
+  //   // contentService.showErrorMessage(errorMessage);
 
-    return throwError(errorMessage);
-  }
+  //   return throwError(errorMessage);
+  // }
 }

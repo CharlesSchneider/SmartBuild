@@ -4,6 +4,7 @@ export const Messages = {
   ok: 'OK',
   cancel: 'Cancelar',
   save: 'Salvar',
+  back: 'Voltar',
   saving: 'Salvando',
   confirm: 'Confirmar'
 };

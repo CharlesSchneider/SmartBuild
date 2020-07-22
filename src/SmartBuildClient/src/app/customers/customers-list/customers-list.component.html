@@ -10,12 +10,14 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Nome</th>
+        <th scope="col">Nascimento</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let customer of customers; index as i">
         <th>{{customer.customerId}}</th>
         <td>{{customer.name}}</td>
+        <td>{{customer.birthDate | date: 'dd/MM/yyyy'}}</td>
       </tr>
     </tbody>
   </table>

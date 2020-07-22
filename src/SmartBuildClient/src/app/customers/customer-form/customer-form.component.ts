@@ -56,22 +56,15 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
     this.startSaving();
 
     this.apiService.post<Customer>(ApiConstants.customers, this.form.value)
-      .subscribe(customer => {
-        this.stopSaving();
-        this.toastrService.info('Cliente salvo com sucesso!', 'Novo Cliente');
-        this.router.navigate(['/clientes', customer.customerId, 'editar']);
-      });
-
-    // .subscribe(response => {
-    //   // this.customer = response;
-
-
-    // });
-
-    // setTimeout(() => {
-    //   this.stopSaving();
-    //   ;
-    // }, 3000);
+      .subscribe(
+        customer => {
+          this.stopSaving();
+          this.toastrService.info('Cliente salvo com sucesso!', 'Novo Cliente');
+          this.router.navigate(['/clientes', customer.customerId, 'editar']);
+        },
+        error => {
+          this.handleError(error);
+        });
   }
 
   cancelAdding() {
@@ -107,6 +100,6 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
   }
 
   ngOnDestroy(): void {
-    this.contentService.lockMenus(false);
+    // this.contentService.lockMenus(false);
   }
 }
