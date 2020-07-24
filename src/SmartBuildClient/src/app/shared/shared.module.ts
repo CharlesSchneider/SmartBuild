@@ -19,6 +19,7 @@ import { DateInterceptor } from './interceptors/date.interceptor';
 import { LoadingDataComponent } from './loading-data/loading-data.component';
 import { ConfirmationModalComponent } from './modals/confirmation-modal/confirmation-modal.component';
 import { ContentModalComponent } from './modals/content-modal/content-modal.component';
+import { ControlValidationFeedbackComponent } from './control-validation-feedback/control-validation-feedback.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ContentModalComponent } from './modals/content-modal/content-modal.comp
     BaseComponent,
     LoaderComponent,
     LoadingDataComponent,
-    ContentModalComponent
+    ContentModalComponent,
+    ControlValidationFeedbackComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { ContentModalComponent } from './modals/content-modal/content-modal.comp
     DatePickerComponent,
     LoaderComponent,
     LoadingDataComponent,
-    ContentModalComponent
+    ContentModalComponent,
+    ControlValidationFeedbackComponent
   ],
   providers: [
     ModalService,

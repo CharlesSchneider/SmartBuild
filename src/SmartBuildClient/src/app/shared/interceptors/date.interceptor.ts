@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 
-import * as _ from 'lodash';
 import { Observable } from 'rxjs';
-import { DateService } from '../date.service';
 
 //
 // Interceptor that converts pt-br date format to 'YYYY-MM-DD', as api expected.
@@ -15,18 +13,17 @@ import { DateService } from '../date.service';
 })
 export class DateInterceptor implements HttpInterceptor {
 
-  constructor(private _dateService: DateService) { }
+  constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let body;
-
 
     if (req.responseType !== 'json' || !req.body ||
       (req.method !== 'POST' && req.method !== 'PUT')) {
       return next.handle(req);
     }
 
-    if (_.isArray(req.body)) {
+    if (Array.isArray(req.body)) {
       body = Object.assign([], req.body);
     } else {
       body = Object.assign({}, req.body);
@@ -42,7 +39,10 @@ export class DateInterceptor implements HttpInterceptor {
       Object.entries(body).forEach(
         ([key, value]) => {
           if (key.toLowerCase().indexOf('date') > -1) {
-            body[key] = this._dateService.toString(value);
+            if (value) {
+              const dateParts = value.toString().split('/');
+              body[key] = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+            }
           }
         }
       );

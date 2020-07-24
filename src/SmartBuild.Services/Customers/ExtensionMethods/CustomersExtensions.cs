@@ -25,5 +25,15 @@ namespace SmartBuild.Services.Customers.ExtensionMethods
 
             return false;
         }
+
+        public static async Task<bool> EmailExists(this DbSet<Customer> customers, string email)
+        {
+            if (!string.IsNullOrWhiteSpace(email))
+            {
+                return await customers.AsNoTracking().AnyAsync(c => c.Email.ToLower() == email.ToLower());
+            }
+
+            return false;
+        }
     }
 }

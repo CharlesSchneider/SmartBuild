@@ -1,0 +1,5 @@
+<!-- Input necessário para fazer uso da class invalid-feedback abaixo-->
+<input type="text" class="form-control is-invalid" style="display: none">
+<div class="invalid-feedback" *ngIf="hasValidationErrorMessages">
+  <div *ngFor="let message of errorMessages">{{message}}</div>
+</div>

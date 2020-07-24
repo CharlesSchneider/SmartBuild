@@ -53,74 +53,176 @@ export class BaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public get isNew(): boolean {
+  protected get isNew(): boolean {
     return this.router.routerState.snapshot.url.indexOf('novo', 0) > -1;
   }
 
-  public get isEditing(): boolean {
+  protected get isEditing(): boolean {
     return this.router.routerState.snapshot.url.indexOf('editar', 0) > -1;
   }
 
-  public startLoading() {
+  protected startLoading() {
     this.isLoading = true;
   }
 
-  public stopLoading() {
+  protected stopLoading() {
     this.isLoading = false;
   }
 
-  public startSaving() {
+  protected startSaving() {
+    this.clearFormValidations();
     this.contentService.lockMenus(true);
     this.disableAllFields();
     this.isSaving = true;
   }
 
-  public stopSaving() {
+  protected stopSaving() {
     this.contentService.lockMenus(false);
     this.enableAllFields();
     this.isSaving = false;
   }
 
-  public validateFormsFields() {
+  protected validateFormsFields() {
     FormsHelper.validateAllFormFields(this.form);
   }
 
-  public clearFormValidations() {
+  protected clearFormValidations() {
     FormsHelper.clearFormValidations(this.form);
   }
 
-  public enableAllFields() {
+  protected enableAllFields() {
     FormsHelper.enableAllFields(this.form);
   }
 
-  public disableAllFields() {
+  protected disableAllFields() {
     FormsHelper.disableAllFields(this.form);
   }
 
-  public handleError(error: HttpErrorResponse) {
+  public validationMessages(fieldName: string, errorName: string = 'serverValidation') {
+    const field = this.form.get(fieldName);
+
+    if (field) {
+      const error = field.getError(errorName);
+      if (error) {
+        return error;
+      }
+    }
+    return false;
+  }
+
+  public fieldHasError(fieldName: string, errorName: string = 'serverValidation') {
+    const field = this.form.get(fieldName);
+
+    if (field) {
+      const error = field.getError(errorName);
+      if (error) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public fieldHasErrorCssClass(fieldName: string, errorName: string = 'serverValidation') {
+    const field = this.form.get(fieldName);
+
+    if (field) {
+      const error = field.getError(errorName);
+      if (error) {
+        return 'is-invalid';
+      }
+    }
+    return '';
+  }
+
+  public fieldMessageError(fieldName: string, errorName: string = 'serverValidation') {
+    const field = this.form.get(fieldName);
+
+    if (field) {
+      const error = field.getError(errorName);
+      if (error) {
+        return error;
+      }
+    }
+    return null;
+  }
+
+  protected handleError(errorResponse: HttpErrorResponse) {
     this.stopLoading();
     this.stopSaving();
 
     const injector = AppInjector.getInjector();
     const contentService = injector.get(ContentService);
 
-    console.log('Base Component HandleError', error);
-
     let errorMessage = 'Erro desconhecido.';
 
-    if (error.error instanceof ErrorEvent) {
+    if (errorResponse.error instanceof ErrorEvent) {
       // Client-side errors
-      errorMessage = error.error.message;
+      errorMessage = errorResponse.error.message;
     } else {
       // Server-side errors
-      if (error.status && error.status === 400) {
+      if (errorResponse.status && errorResponse.status === 400) {
         errorMessage = 'Houve erros de Validação. Por favor, verifique.';
+        this.setFieldsErrors(errorResponse);
       } else {
-        errorMessage = `Server error: ${error.message}`;
+        errorMessage = `Server error: ${errorResponse.message}`;
+        contentService.showErrorMessage(errorMessage);
       }
     }
 
-    contentService.showErrorMessage(errorMessage);
     return throwError(errorMessage);
+  }
+
+  private setFieldsErrors(errorResponse: HttpErrorResponse) {
+    const errors = errorResponse.error.errors;
+
+    Object.keys(errors).forEach((key, index) => {
+      // key: the name of the object key
+      // index: the ordinal position of the key within the object
+
+      let fieldName = '';
+
+      // Converts uppercased strings to camelCase
+      // i.e.: BirthDate        => birthDate
+      //       RG               => rg
+      //       Address.City     => address.city
+      //       Address.ZipCode  => address.zipCode
+      if (key.indexOf('.') > -1) {
+        const fieldNameParts = key.split('.');
+        for (const fieldNamePart of fieldNameParts) {
+          fieldName += this.convertFirstLetterToLowerCase(fieldNamePart);
+          fieldName += '.';
+        }
+
+        // Removes last '.'
+        if (fieldName.endsWith('.')) {
+          fieldName = fieldName.slice(0, -1);
+        }
+      } else {
+        fieldName += this.convertFirstLetterToLowerCase(key);
+      }
+
+      // console.log(`fieldName ${key}`, fieldName);
+
+      // Find specified field on form
+      const field = this.form.get(fieldName);
+
+      // If the field exists, set error on it
+      if (field) {
+        const messages = Object.values(errors[key]);
+        if (Array.isArray(messages) && messages.length > 0) {
+          field.setErrors({ serverValidation: messages });
+        }
+      }
+    });
+  }
+
+  private convertFirstLetterToLowerCase(text: string): string {
+    return this.hasLowerCase(text)
+      ? text.charAt(0).toLowerCase() + text.slice(1) // converts first letter to lower case
+      : text.toLowerCase(); // converts the whole string to lower case
+  }
+
+  private hasLowerCase(str) {
+    return (/[a-z]/.test(str));
   }
 }

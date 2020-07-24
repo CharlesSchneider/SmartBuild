@@ -34,6 +34,9 @@
               "node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js",
               "node_modules/jquery/dist/jquery.slim.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "lodash"
             ]
           },
           "configurations": {

@@ -3,8 +3,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BaseComponent } from 'src/app/shared/base.component';
 import { ApiConstants } from 'src/app/shared/api/api.service';
 import { Customer } from 'src/app/models/customer';
-import { switchMap, catchError, mergeMap } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'sb-customer-form',
@@ -97,6 +95,10 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
 
   public get cpfMask() {
     return '000.000.000-00';
+  }
+
+  get nameValidationResult() {
+    return this.validationMessages('name');
   }
 
   ngOnDestroy(): void {
