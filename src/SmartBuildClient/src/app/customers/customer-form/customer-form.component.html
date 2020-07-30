@@ -1,14 +1,15 @@
 <sb-page-header pageTitle="Novo Cliente">
-  <button class="btn btn-outline-dark mr-1" (click)="cancelAdding()" [disabled]="isSaving">
+  <button class="btn btn-outline-dark mr-1" (click)="cancelAdding()" [disabled]="isSaving || isLoading">
     {{Messages.back}}
   </button>
-  <button class="btn btn-primary" (click)="save()" [disabled]="isSaving">
+  <button class="btn btn-primary" (click)="save()" [disabled]="isSaving || isLoading">
     <span *ngIf="!isSaving">{{Messages.save}}</span>
     <span *ngIf="isSaving">{{Messages.saving}} </span>
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isSaving"></span>
   </button>
-
 </sb-page-header>
+<sb-loading-data *ngIf="isLoading">
+</sb-loading-data>
 <form [formGroup]="form" autocomplete="off">
   <div class="form-group">
     <label for="name">Nome</label>

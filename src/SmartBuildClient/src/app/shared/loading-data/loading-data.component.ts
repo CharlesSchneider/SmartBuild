@@ -6,7 +6,6 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./loading-data.component.css']
 })
 export class LoadingDataComponent implements OnInit {
-  @Input() hasData: boolean;
 
   constructor() { }
 

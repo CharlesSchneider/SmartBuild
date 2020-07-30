@@ -1,7 +1,6 @@
 <sb-page-header pageTitle="Listagem de Clientes">
-  <button class="btn btn-primary" (click)="newClient()">Novo Cliente</button>
+  <button class="btn btn-primary" (click)="newClient()" [disabled]="isLoading">Novo Cliente</button>
 </sb-page-header>
-
 <sb-loading-data *ngIf="isLoading; else list">
 </sb-loading-data>
 <ng-template #list>
@@ -11,13 +10,15 @@
         <th scope="col">ID</th>
         <th scope="col">Nome</th>
         <th scope="col">Nascimento</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let customer of customers; index as i">
         <th>{{customer.customerId}}</th>
         <td>{{customer.name}}</td>
-        <td>{{customer.birthDate | date: 'dd/MM/yyyy'}}</td>
+        <td>{{customer.birthDate}}</td>
+        <td><a [routerLink]="['/clientes/' + customer.customerId + '/editar']">Editar</a></td>
       </tr>
     </tbody>
   </table>

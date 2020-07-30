@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { retry, catchError, take } from 'rxjs/operators';
-import { throwError } from 'rxjs';
-import { ContentService } from '../content.service';
-import { AppInjector } from '../app-injector';
+import { retry, take } from 'rxjs/operators';
 
 export const ApiConstants = {
   customers: 'customers'
@@ -30,8 +27,7 @@ export class ApiService {
     return this.http.get<T>(requestUrl)
       .pipe(
         retry(this.RETRIES),
-        take(1),
-        // catchError(this.handleError)
+        take(1)
       );
   }
 
@@ -40,29 +36,16 @@ export class ApiService {
     return this.http.post<T>(requestUrl, data)
       .pipe(
         retry(this.RETRIES),
-        take(1),
-        // catchError(this.handleError)
+        take(1)
       );
   }
 
-  // handleError(error: HttpErrorResponse) {
-  //   const injector = AppInjector.getInjector();
-  //   const contentService = injector.get(ContentService);
-
-  //   console.log('Api Service HandleError', error);
-
-  //   let errorMessage = 'Erro desconhecido.';
-
-  //   if (error.error instanceof ErrorEvent) {
-  //     // Client-side errors
-  //     errorMessage = error.error.message;
-  //   } else {
-  //     // Server-side errors
-  //     errorMessage = error.message;
-  //   }
-
-  //   // contentService.showErrorMessage(errorMessage);
-
-  //   return throwError(errorMessage);
-  // }
+  public put<T>(url, id: number, data: T) {
+    const requestUrl = `${this.API_URL}/${url}/${id}`;
+    return this.http.put<T>(requestUrl, data)
+      .pipe(
+        retry(this.RETRIES),
+        take(1)
+      );
+  }
 }

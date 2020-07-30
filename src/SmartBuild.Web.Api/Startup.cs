@@ -43,6 +43,8 @@ namespace SmartBuild.Web.Api
                     config.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
                 });
 
+            services.AddHttpContextAccessor();
+
             services.AddLocalization();
 
             services.AddDbContext<SmartBuildDbContext>(options =>

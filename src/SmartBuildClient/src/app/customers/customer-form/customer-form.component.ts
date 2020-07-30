@@ -3,6 +3,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BaseComponent } from 'src/app/shared/base.component';
 import { ApiConstants } from 'src/app/shared/api/api.service';
 import { Customer } from 'src/app/models/customer';
+import { Address } from 'src/app/models/address';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'sb-customer-form',
@@ -11,7 +14,7 @@ import { Customer } from 'src/app/models/customer';
 })
 export class CustomerFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  constructor() { super(); }
+  constructor(private route: ActivatedRoute) { super(); }
 
   ngOnInit(): void {
 
@@ -38,6 +41,40 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
       email: [null],
       isDeleted: [false]
     });
+
+    if (this.isEditing) {
+      this.startLoading();
+      this.disableAllFields();
+
+      this.route.params.subscribe(params => {
+        const id = params.id;
+        if (id) {
+          this.apiService.get<Customer>(`${ApiConstants.customers}/${id}`)
+            .subscribe(
+              customer => {
+                if (!customer.address) {
+                  customer.address = new Address();
+                }
+
+                this.form.patchValue(customer);
+                this.enableAllFields();
+                this.stopLoading();
+              },
+              error => {
+                this.enableAllFields();
+                this.handleError(error);
+              });
+        }
+      });
+    }
+  }
+
+  get customerId() {
+    return this.form.get('customerId').value;
+  }
+
+  set customerId(value) {
+    this.form.get('customerId').patchValue(value);
   }
 
   getValidationClass() {
@@ -49,20 +86,30 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
   }
 
   save() {
-    console.log('form', this.form);
+    if (this.form.valid) {
+      this.startSaving();
 
-    this.startSaving();
+      let saveCustomer: Observable<Customer>;
 
-    this.apiService.post<Customer>(ApiConstants.customers, this.form.value)
-      .subscribe(
+      if (this.isNew) {
+        saveCustomer = this.apiService.post<Customer>(ApiConstants.customers, this.form.value);
+      } else {
+        saveCustomer = this.apiService.put<Customer>(ApiConstants.customers, this.customerId, this.form.value);
+      }
+
+      saveCustomer.subscribe(
         customer => {
+          this.toastrService.info('Cliente salvo com sucesso!', 'Salvar Cliente');
+          this.form.markAsPristine();
           this.stopSaving();
-          this.toastrService.info('Cliente salvo com sucesso!', 'Novo Cliente');
-          this.router.navigate(['/clientes', customer.customerId, 'editar']);
+          if (this.isNew) {
+            this.router.navigate(['/clientes', customer.customerId, 'editar']);
+          }
         },
         error => {
           this.handleError(error);
         });
+    }
   }
 
   cancelAdding() {

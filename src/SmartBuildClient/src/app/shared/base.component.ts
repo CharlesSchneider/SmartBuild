@@ -27,6 +27,7 @@ export class BaseComponent implements OnInit {
   public form: FormGroup;
   public isSaving: boolean;
   public isLoading: boolean;
+  public isLoaded = false;
 
   // Services
   protected contentService: ContentService;
@@ -34,7 +35,6 @@ export class BaseComponent implements OnInit {
   protected apiService: ApiService;
   protected fb: FormBuilder;
   protected router: Router;
-  protected route: ActivatedRoute;
   protected loaderService: LoaderService;
   protected toastrService: ToastrService;
 
@@ -69,17 +69,23 @@ export class BaseComponent implements OnInit {
     this.isLoading = false;
   }
 
-  protected startSaving() {
+  protected startSaving(lockScreen = true) {
     this.clearFormValidations();
-    this.contentService.lockMenus(true);
-    this.disableAllFields();
     this.isSaving = true;
+
+    if (lockScreen) {
+      this.contentService.lockMenus(true);
+      this.disableAllFields();
+    }
   }
 
-  protected stopSaving() {
-    this.contentService.lockMenus(false);
-    this.enableAllFields();
+  protected stopSaving(unLockScreen = true) {
     this.isSaving = false;
+
+    if (unLockScreen) {
+      this.contentService.lockMenus(false);
+      this.enableAllFields();
+    }
   }
 
   protected validateFormsFields() {
@@ -200,8 +206,6 @@ export class BaseComponent implements OnInit {
       } else {
         fieldName += this.convertFirstLetterToLowerCase(key);
       }
-
-      // console.log(`fieldName ${key}`, fieldName);
 
       // Find specified field on form
       const field = this.form.get(fieldName);

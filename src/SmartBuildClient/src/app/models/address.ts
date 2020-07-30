@@ -1,4 +1,4 @@
-export interface Address {
+export class Address {
   addressId: number;
   street: string;
   number: string;
@@ -7,4 +7,4 @@ export interface Address {
   state: string;
   zipCode: string;
   reference: string;
-};
+}

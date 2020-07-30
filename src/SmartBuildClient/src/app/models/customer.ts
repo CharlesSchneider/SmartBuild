@@ -3,7 +3,7 @@ import { Address } from './address';
 export class Customer {
   customerId: number;
   name: string;
-  birthDate?: Date;
+  birthDate?: string;
   rg?: string;
   cpf?: string;
   address: Address;

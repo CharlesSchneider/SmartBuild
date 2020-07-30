@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -48,15 +49,32 @@ namespace SmartBuild.Services.Customers
             }
         }
 
+        public async Task<CustomerModel> GetCustomerByIdAsync(int customerId)
+        {
+            var customer = default(CustomerModel);
+
+            try
+            {
+                var customerQuery = _context.Customers
+                                            .Where(c => c.CustomerId == customerId)
+                                            .Include(x => x.Address)
+                                            .AsNoTracking();
+                customer = await _mapper.ProjectTo<CustomerModel>(customerQuery)
+                                        .FirstOrDefaultAsync();
+                return customer;
+            }
+            catch (Exception ex)
+            {
+                var method = MethodBase.GetCurrentMethod();
+                _logger.LogError(ex, $"[{method.Module.Name}] - {method.Name}");
+                throw;
+            }
+        }
+
         public async Task<CustomerModel> AddAsync(CustomerSave customer)
         {
             try
             {
-                if (customer.Address?.AddressId == default(int))
-                {
-                    customer.Address = null;
-                }
-
                 var newCustomer = _mapper.Map<Customer>(customer);
                 await _context.AddAsync(newCustomer);
                 await _context.SaveChangesAsync();
@@ -78,7 +96,7 @@ namespace SmartBuild.Services.Customers
 
                 if (existingCustomer == null) return null;
 
-                existingCustomer = _mapper.Map<Customer>(customer);
+                existingCustomer = _mapper.Map(customer, existingCustomer);
 
                 _context.Update(existingCustomer);
                 await _context.SaveChangesAsync();

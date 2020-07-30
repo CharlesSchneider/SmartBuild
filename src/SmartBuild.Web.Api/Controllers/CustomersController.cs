@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SmartBuild.Services.Customers;
@@ -28,6 +27,13 @@ namespace SmartBuild.Web.Api.Controllers
             }
         }
 
+        [HttpGet("{customerId}")]
+        public async Task<CustomerModel> GetAsync(int customerId)
+        {
+            var customer = await _customersService.GetCustomerByIdAsync(customerId);
+            return customer;
+        }
+
         [HttpPost]
         public async Task<CustomerModel> PostAsync(CustomerSave customer)
         {
@@ -36,7 +42,7 @@ namespace SmartBuild.Web.Api.Controllers
         }
 
         [HttpPut("{customerId}")]
-        public async Task<CustomerModel> PutAsync(int customerId, [FromBody] CustomerSave customer)
+        public async Task<CustomerModel> PutAsync([FromRoute] int customerId, [FromBody] CustomerSave customer)
         {
             var result = await _customersService.UpdateAsync(customerId, customer);
             return result;
