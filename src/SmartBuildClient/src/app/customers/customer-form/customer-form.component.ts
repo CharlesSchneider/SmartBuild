@@ -91,6 +91,10 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
 
       let saveCustomer: Observable<Customer>;
 
+      if (this.form.get('birthDate').value === '') {
+        this.form.get('birthDate').setValue(null);
+      }
+
       if (this.isNew) {
         saveCustomer = this.apiService.post<Customer>(ApiConstants.customers, this.form.value);
       } else {
@@ -99,7 +103,7 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
 
       saveCustomer.subscribe(
         customer => {
-          this.toastrService.info('Cliente salvo com sucesso!', 'Salvar Cliente');
+          this.toastrService.info(this.Messages.customerSavedSuccesfully, this.Messages.saveCustomer);
           this.form.markAsPristine();
           this.stopSaving();
           if (this.isNew) {
@@ -116,7 +120,8 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
     if (this.form.dirty) {
       this.toastrService.clear();
       this.modalService
-        .showConfirmationModal('Cancelar Inclusão', 'Deseja cancelar a inclusão deste cliente?', 'Os dados informados serão perdidos e você será direcionado para a listagem de clientes.', undefined, undefined, false)
+        .showConfirmationModal(this.Messages.cancelAdding, this.Messages.cancelAddingCustomer, this.Messages.cancelAddingCustomerTip,
+          undefined, undefined, false)
         .result
         .then(result => {
           if (result) {

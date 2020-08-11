@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Router, RouterModule } from '@angular/router';
 
 import { PageHeaderComponent } from './page-header/page-header.component';
 import { ModalService } from './modals/modal.service';
@@ -20,6 +21,7 @@ import { LoadingDataComponent } from './loading-data/loading-data.component';
 import { ConfirmationModalComponent } from './modals/confirmation-modal/confirmation-modal.component';
 import { ContentModalComponent } from './modals/content-modal/content-modal.component';
 import { ControlValidationFeedbackComponent } from './control-validation-feedback/control-validation-feedback.component';
+import { GridComponent } from './grid/grid.component';
 
 @NgModule({
   declarations: [
@@ -30,13 +32,15 @@ import { ControlValidationFeedbackComponent } from './control-validation-feedbac
     LoaderComponent,
     LoadingDataComponent,
     ContentModalComponent,
-    ControlValidationFeedbackComponent
+    ControlValidationFeedbackComponent,
+    GridComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RouterModule,
     NgbModule,
     NgxMaskModule.forRoot(GlobalMaskConfig)
   ],
@@ -46,7 +50,8 @@ import { ControlValidationFeedbackComponent } from './control-validation-feedbac
     LoaderComponent,
     LoadingDataComponent,
     ContentModalComponent,
-    ControlValidationFeedbackComponent
+    ControlValidationFeedbackComponent,
+    GridComponent
   ],
   providers: [
     ModalService,

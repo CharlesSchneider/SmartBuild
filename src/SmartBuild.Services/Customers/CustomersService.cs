@@ -75,6 +75,7 @@ namespace SmartBuild.Services.Customers
         {
             try
             {
+                EvaluateAddress(customer);
                 var newCustomer = _mapper.Map<Customer>(customer);
                 await _context.AddAsync(newCustomer);
                 await _context.SaveChangesAsync();
@@ -96,6 +97,8 @@ namespace SmartBuild.Services.Customers
 
                 if (existingCustomer == null) return null;
 
+                EvaluateAddress(customer);
+
                 existingCustomer = _mapper.Map(customer, existingCustomer);
 
                 _context.Update(existingCustomer);
@@ -107,6 +110,21 @@ namespace SmartBuild.Services.Customers
                 var method = MethodBase.GetCurrentMethod();
                 _logger.LogError(ex, $"{method.Module.Name}.{method.Name}");
                 throw;
+            }
+        }
+
+        private void EvaluateAddress(CustomerSave customer)
+        {
+            if (customer.Address?.AddressId == default(int) &&
+                customer.Address?.City == default &&
+                customer.Address?.Neighborhood == default &&
+                customer.Address?.Number == default &&
+                customer.Address?.Reference == default &&
+                customer.Address?.State == default &&
+                customer.Address?.Street == default &&
+                customer.Address?.ZipCode == default)
+            {
+                customer.Address = null;
             }
         }
 
