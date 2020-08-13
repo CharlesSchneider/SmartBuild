@@ -10,6 +10,7 @@ export class GridComponent implements OnInit {
   @Input() allowSelect = true;
   @Input() allowEdit = true;
   @Input() allowDelete = true;
+  @Input() isLoading = false;
   @Output() rowSelected = new EventEmitter<any>();
 
   private _key: number | string;
@@ -18,6 +19,11 @@ export class GridComponent implements OnInit {
   private _data: any;
   private _selectedRowData: any;
   private _editRoute: string;
+  private _fetchDataUrl: string;
+
+  collectionSize: number;
+  pageSize = 10;
+  page = 1;
 
   constructor(private router: Router) { }
 
@@ -64,6 +70,7 @@ export class GridComponent implements OnInit {
     if (this._columns) {
       if (value.length > 0) {
         this._data = value;
+        this.collectionSize = value.length;
       }
     } else {
       console.error('sb-grid', 'No columns defined.');
@@ -76,6 +83,20 @@ export class GridComponent implements OnInit {
 
   public get selectedRow() {
     return this.allowSelect ? this._selectedRowData : null;
+  }
+
+  public set fetchDataUrl(url: string) {
+    this._fetchDataUrl = url;
+  }
+
+  refresh() {
+    if (this._fetchDataUrl) {
+
+
+
+    } else {
+      console.error('fetchDataUrl not set.');
+    }
   }
 
   public getFieldValue(rowIndex: number, columnName: string): any {

@@ -4,7 +4,8 @@ import { environment } from 'src/environments/environment';
 import { retry, take } from 'rxjs/operators';
 
 export const ApiConstants = {
-  customers: 'customers'
+  customers: 'customers',
+  customersList: 'customers/GetListAsync'
 };
 
 @Injectable({
@@ -43,6 +44,15 @@ export class ApiService {
   public put<T>(url, id: number, data: T) {
     const requestUrl = `${this.API_URL}/${url}/${id}`;
     return this.http.put<T>(requestUrl, data)
+      .pipe(
+        retry(this.RETRIES),
+        take(1)
+      );
+  }
+
+  public delete<T>(url, id: number) {
+    const requestUrl = `${this.API_URL}/${url}/${id}`;
+    return this.http.delete<T>(requestUrl)
       .pipe(
         retry(this.RETRIES),
         take(1)

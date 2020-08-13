@@ -15,6 +15,8 @@ import { Observable } from 'rxjs';
 export class CustomerFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute) { super(); }
+  pageTitle = '';
+  keepAdding = false;
 
   ngOnInit(): void {
 
@@ -42,9 +44,13 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
       isDeleted: [false]
     });
 
+    this.pageTitle = 'Novo Cliente';
+
     if (this.isEditing) {
       this.startLoading();
       this.disableAllFields();
+
+      this.pageTitle = 'Editar Cliente';
 
       this.route.params.subscribe(params => {
         const id = params.id;
@@ -106,8 +112,17 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
           this.toastrService.info(this.Messages.customerSavedSuccesfully, this.Messages.saveCustomer);
           this.form.markAsPristine();
           this.stopSaving();
-          if (this.isNew) {
-            this.router.navigate(['/clientes', customer.customerId, 'editar']);
+
+          if (this.keepAdding) {
+            this.form.reset();
+            this.form.get('customerId').setValue(0);
+            this.form.get('address.addressId').setValue(0);
+            this.form.get('isDeleted').setValue(false);
+            this.router.navigate(['/clientes', 'novo']);
+          } else {
+            if (this.isNew) {
+              this.router.navigate(['/clientes', customer.customerId, 'editar']);
+            }
           }
         },
         error => {

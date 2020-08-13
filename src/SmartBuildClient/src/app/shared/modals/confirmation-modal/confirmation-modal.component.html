@@ -10,9 +10,10 @@
       <p>{{modalMessage}}</p>
       <small *ngIf="tip.length > 0" class="text-black-50">{{tip}}</small>
     </div>
-    <ng-template #alertMessage class="col">
-      <div class="alert alert-danger" role="alert">
-        {{modalMessage}}
+    <ng-template #alertMessage>
+      <div class="alert alert-danger" role="alert" class="col" alertMessage>
+        <p>{{modalMessage}}</p>
+        <small *ngIf="tip.length > 0" class="text-black-50">{{tip}}</small>
       </div>
     </ng-template>
     <div class="col-2">

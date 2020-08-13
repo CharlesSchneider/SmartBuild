@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.DynamicLinq;
 using Microsoft.Extensions.Logging;
 using SmartBuild.Data;
 using SmartBuild.Entities.Customers;
@@ -24,6 +26,51 @@ namespace SmartBuild.Services.Customers
             _context = context;
             _logger = logger;
             _mapper = mapper;
+        }
+
+        public async Task<PagedResponse<List<CustomerModel>>> GetPagedCustomersAsync(
+            string searchTerm = null,
+            int? start = null,
+            int? length = null,
+            string order = null,
+            string orderDir = "asc")
+        {
+            try
+            {
+                var customersQuery = _context.Customers.Include(x => x.Address)
+                                             .Where(c => string.IsNullOrWhiteSpace(searchTerm) ||
+                                                        (!string.IsNullOrWhiteSpace(searchTerm) && 
+                                                            (EF.Functions.Like(c.Name, $"%{searchTerm}%")
+                                                            || EF.Functions.Like(c.Email, $"%{searchTerm}%")
+                                                            || EF.Functions.Like(c.CPF, $"%{searchTerm}%")
+                                                            || EF.Functions.Like(c.RG, $"%{searchTerm}%")
+                                                            || EF.Functions.Like(c.Address.Street, $"%{searchTerm}%"))
+                                                        ))
+                                             .AsNoTracking();
+
+                if (!string.IsNullOrWhiteSpace(order))
+                {
+                    customersQuery = customersQuery.OrderBy($"{order} {orderDir}");
+                }
+
+                if (start.HasValue && length.HasValue)
+                {
+                    customersQuery = customersQuery.Skip(start.Value).Take(length.Value).AsNoTracking();
+                }
+
+                var customers = await _mapper.ProjectTo<CustomerModel>(customersQuery).ToListAsync();
+
+                return new PagedResponse<List<CustomerModel>>(
+                    customers.Count,
+                    _context.Customers.Count(),
+                    customers);
+            }
+            catch (Exception ex)
+            {
+                var method = MethodBase.GetCurrentMethod();
+                _logger.LogError(ex, $"[{method.Module.Name}] - {method.Name}");
+                throw;
+            }
         }
 
         public async IAsyncEnumerable<CustomerModel> GetCustomersAsync()

@@ -1,8 +1,32 @@
 <sb-page-header pageTitle="Listagem de Clientes">
-  <button class="btn btn-primary" (click)="newClient()" [disabled]="isLoading">Novo Cliente</button>
+  <button class="btn btn-primary" (click)="newClient()" *ngIf="!isLoading">Novo Cliente</button>
 </sb-page-header>
 <sb-loading-data *ngIf="isLoading">
 </sb-loading-data>
-<sb-grid (rowSelected)="customerSelected($event)">
-
-</sb-grid>
+<div class="shadow-sm pl-3 pr-3">
+  <form autocomplete="off">
+    <div class="container">
+      <div class="d-flex mb-4">
+        <div class="d-table-cell w-100 mr-2">
+          <input type="text" id="search" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}"
+            class="form-control" placeholder="Pesquisar clientes por nome, e-mail, endereço">
+        </div>
+        <div class="d-table-cell align-middle">
+          <button type="submit" class="btn btn-outline-primary" (click)="doSearch()">Pesquisar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div>
+    <table id="customersTable" class="table table-sm table-hover">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nome</th>
+          <th scope="col">E-mail</th>
+          <th scope="col" class="text-align-right"></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>

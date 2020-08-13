@@ -53,11 +53,11 @@ export class BaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  protected get isNew(): boolean {
+  public get isNew(): boolean {
     return this.router.routerState.snapshot.url.indexOf('novo', 0) > -1;
   }
 
-  protected get isEditing(): boolean {
+  public get isEditing(): boolean {
     return this.router.routerState.snapshot.url.indexOf('editar', 0) > -1;
   }
 

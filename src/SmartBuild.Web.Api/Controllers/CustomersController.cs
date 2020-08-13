@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SmartBuild.Services;
 using SmartBuild.Services.Customers;
 using SmartBuild.Services.Customers.Models;
 
@@ -15,6 +16,18 @@ namespace SmartBuild.Web.Api.Controllers
         public CustomersController(ICustomersService customersService)
         {
             _customersService = customersService;
+        }
+
+        [HttpGet("GetListAsync")]
+        public async Task<PagedResponse<List<CustomerModel>>> GetListAsync(
+            [FromQuery] string searchTerm = null,
+            [FromQuery] int? start = null,
+            [FromQuery] int? length = null,
+            [FromQuery] string order = null,
+            [FromQuery] string orderDir = "asc")
+        {
+            var pagedCustomers = await _customersService.GetPagedCustomersAsync(searchTerm, start, length, order, orderDir);
+            return pagedCustomers;
         }
 
         [HttpGet]
