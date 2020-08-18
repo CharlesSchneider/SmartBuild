@@ -1,16 +1,17 @@
 import { Address } from './address';
 
 export class Customer {
-  customerId: number;
-  name: string;
-  birthDate?: string;
-  rg?: string;
-  cpf?: string;
-  address: Address;
-  homePhone?: string;
-  workPhone?: string;
-  referencePhone?: string;
-  cellPhone?: string;
-  email?: string;
-  isDeleted: boolean;
-};
+  constructor(public customerId?: number,
+    public name?: string,
+    public birthDate?: string,
+    public rg?: string,
+    public cpf?: string,
+    public address?: Address,
+    public homePhone?: string,
+    public workPhone?: string,
+    public referencePhone?: string,
+    public cellPhone?: string,
+    public email?: string,
+    public isDeleted?: boolean) {
+  }
+}
