@@ -1,12 +1,12 @@
 <sb-page-header [pageTitle]="pageTitle">
-  <button class="btn btn-outline-dark mr-1" (click)="cancelAdding()" [disabled]="isSaving || isLoading">
+  <button class="btn btn-outline-dark mr-1" (click)="cancelAdding()" [disabled]="isSaving || isLoading"
+    placement="bottom" ngbTooltip="Listagem de Clientes">
     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor"
       xmlns="http://www.w3.org/2000/svg">
       <path fill-rule="evenodd"
         d="M7.854 4.646a.5.5 0 0 1 0 .708L5.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z" />
       <path fill-rule="evenodd" d="M4.5 8a.5.5 0 0 1 .5-.5h6.5a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z" />
     </svg>
-    Voltar para a Listagem de Clientes
   </button>
   <button class="btn btn-primary" (click)="save()" [disabled]="isSaving || isLoading" *ngIf="!isNew">
     <span *ngIf="!isSaving">{{Messages.save}}</span>
@@ -14,23 +14,20 @@
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isSaving"></span>
   </button>
   <div class="btn-group" role="group" *ngIf="isNew">
-    <button class="btn btn-primary" (click)="save()" [disabled]="isSaving || isLoading">
+    <button class="btn btn-primary mr-1" (click)="save()" [disabled]="isSaving || isLoading">
       <span *ngIf="!isSaving">{{Messages.save}}</span>
       <span *ngIf="isSaving">{{Messages.saving}} </span>
       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isSaving"></span>
     </button>
-    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-      aria-expanded="false"></button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="keppAdding" [(ngModel)]="keepAdding">
-          <label class="form-check-label" for="keppAdding">
-            <small>Continuar Incluindo</small>
-          </label>
-        </div>
-      </a>
-    </div>
+    <button type="button" class="btn btn-primary" (click)="save(true)" [disabled]="isSaving || isLoading" *ngIf="isNew"
+      placement="bottom" ngbTooltip="Salvar e incluir um novo cliente">
+      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+          d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z" />
+        <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z" />
+      </svg>
+    </button>
   </div>
 </sb-page-header>
 <sb-loading-data *ngIf="isLoading">
