@@ -39,7 +39,7 @@ namespace SmartBuild.Services.Customers
             {
                 var customersQuery = _context.Customers.Include(x => x.Address)
                                              .Where(c => string.IsNullOrWhiteSpace(searchTerm) ||
-                                                        (!string.IsNullOrWhiteSpace(searchTerm) && 
+                                                        (!string.IsNullOrWhiteSpace(searchTerm) &&
                                                             (EF.Functions.Like(c.Name, $"%{searchTerm}%")
                                                             || EF.Functions.Like(c.Email, $"%{searchTerm}%")
                                                             || EF.Functions.Like(c.CPF, $"%{searchTerm}%")
@@ -172,6 +172,24 @@ namespace SmartBuild.Services.Customers
                 customer.Address?.ZipCode == default)
             {
                 customer.Address = null;
+            }
+            else
+            {
+                if (customer.Address?.AddressId == default(int))
+                {
+                    var newAddress = new AddressSave()
+                    {
+                        City = customer.Address?.City,
+                        Neighborhood = customer.Address?.Neighborhood,
+                        Number = customer.Address?.Number,
+                        Reference = customer.Address?.Reference,
+                        State = customer.Address?.State,
+                        Street = customer.Address?.Street,
+                        ZipCode = customer.Address?.ZipCode
+                    };
+
+                    customer.Address = newAddress;
+                }
             }
         }
 

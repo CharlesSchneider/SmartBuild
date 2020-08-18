@@ -16,7 +16,6 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
 
   constructor(private route: ActivatedRoute) { super(); }
   pageTitle = '';
-  keepAdding = false;
 
   ngOnInit(): void {
 
@@ -91,7 +90,7 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
     return this.form.get('name').errors ? 'invalid-feedback' : '';
   }
 
-  save() {
+  save(keepAdding = false) {
     if (this.form.valid) {
       this.startSaving();
 
@@ -113,7 +112,7 @@ export class CustomerFormComponent extends BaseComponent implements OnInit, OnDe
           this.form.markAsPristine();
           this.stopSaving();
 
-          if (this.keepAdding) {
+          if (keepAdding) {
             this.form.reset();
             this.form.get('customerId').setValue(0);
             this.form.get('address.addressId').setValue(0);
