@@ -8,9 +8,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CustomerFormModalComponent } from './customer-form-modal/customer-form-modal.component';
 
 @NgModule({
-  declarations: [CustomersListComponent, CustomerFormComponent],
+  declarations: [CustomersListComponent, CustomerFormComponent, CustomerFormModalComponent],
   imports: [
     CommonModule,
     FormsModule,

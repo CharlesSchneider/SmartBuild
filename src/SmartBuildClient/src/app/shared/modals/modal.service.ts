@@ -51,7 +51,10 @@ export class ModalService {
     const modalRef = this.modalService.open(contentComponent, {
       size: 'xl',
       backdrop: 'static',
-      keyboard: false
+      keyboard: false,
+      centered: true
     });
+
+    return modalRef;
   }
 }
