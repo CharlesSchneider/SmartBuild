@@ -14,6 +14,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { GlobalMaskConfig } from './shared/globalmask.config';
 import { ToastrModule } from 'ngx-toastr';
+import { CustomerFormModalComponent } from './customers/customer-form-modal/customer-form-modal.component';
+import { CustomerFormComponent } from './customers/customer-form/customer-form.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,9 @@ import { ToastrModule } from 'ngx-toastr';
       toastClass: 'ngx-toastr sb-ngx-toastr shadow',
       positionClass: 'toast-top-center'
     })
+  ],
+  entryComponents: [
+    CustomerFormComponent
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' }

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { CustomersListComponent } from './customers-list/customers-list.component';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
+import { CustomerFormModalComponent } from './customer-form-modal/customer-form-modal.component';
 
 const routes: Routes = [
   {
@@ -12,10 +13,10 @@ const routes: Routes = [
     path: 'listagem', component: CustomersListComponent, pathMatch: 'full'
   },
   {
-    path: 'novo', component: CustomerFormComponent, pathMatch: 'full'
+    path: 'novo', component: CustomerFormModalComponent, pathMatch: 'full'
   },
   {
-    path: ':id/editar', component: CustomerFormComponent, pathMatch: 'full'
+    path: ':id/editar', component: CustomerFormModalComponent, pathMatch: 'full'
   }
 ];
 
